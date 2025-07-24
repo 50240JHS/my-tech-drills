@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>フラッシュカード | 技術 my-tech-drills</title>
+  <link rel="stylesheet" href="../common/style.css" />
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0 auto;
+      max-width: 900px;
+      line-height: 1.7;
+      padding: 2rem;
+      background: linear-gradient(to top, #f1f8e9, #ffffff);
+    }
+    h1, h2, footer { text-align: center; color: #333; }
+    h1::before {
+      content: " ";
+      display: inline-block;
+      background: radial-gradient(circle at 35% 35%, #ffffff 10%, #dcedc8 60%, #ffffff 100%);
+      border-radius: 50%;
+      width: 1.2em;
+      height: 1.2em;
+      margin-right: 0.5em;
+      vertical-align: middle;
+      border: 2px solid #8bc34a;
+      box-shadow: 0 0 8px rgba(139, 195, 74, 0.4), 0 0 15px rgba(220, 237, 200, 0.5), inset 2px -2px 5px rgba(255, 255, 255, 0.9);
+    }
+    summary {
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 1rem;
+      text-align: center;
+    }
+    details > *:not(summary) {
+      text-align: left;
+    }
+    .menu-section details.summary-info summary {
+      background: linear-gradient(to right, #ffffff, #f1f8e9);
+      padding: 0.5rem;
+      border-left: 4px solid #8bc34a;
+      margin-top: 0.5rem;
+      text-align: left;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(139, 195, 74, 0.2), inset 0 0 5px rgba(255, 255, 255, 0.8);
+      transition: all 0.3s ease;
+    }
+    .menu-section details.summary-info summary:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 10px rgba(139, 195, 74, 0.3), inset 0 0 10px rgba(255, 255, 255, 0.9);
+    }
+    .menu-section p { margin-left: 1rem; }
+    footer {
+      margin-top: 2rem;
+      border-top: 1px solid #ccc;
+      padding-top: 1rem;
+      color: #555;
+    }
+    @media (max-width: 600px) {
+      body { padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>フラッシュカード | 技術 my-tech-drills</h1>
+    <p><a href="../index.html">🏠 総合TOPへもどる</a></p>
+  </header>
+
+  <main>
+    <section>
+      <h2>ここでできること</h2>
+      <p>このページは「フラッシュカード」のスタートページです。用語をおぼえたり、基礎をチェックしたりするために使います。</p>
+    </section>
+
+    <details>
+      <summary>進み方のながれ</summary>
+      <ol>
+        <li>まずは <strong>興味のある領域</strong> を選んでみよう</li>
+        <li>カードでことばを何度も確認！</li>
+        <li>むずかしい用語はメモしておこう</li>
+        <li>わからなくなったら <a href="../my-tech-drills.html">進め方ガイド</a> へ</li>
+      </ol>
+    </details>
+
+    <section class="menu-section">
+      <h2>領域別フラッシュカード</h2>
+      <details class="summary-info">
+        <summary>生物育成に関する技術</summary>
+        <p><a href="flashcards_bio_cultivation.html">生物育成フラッシュカードを開く</a></p>
+      </details>
+      <details class="summary-info">
+        <summary>材料と加工に関する技術</summary>
+        <p><a href="flashcards_materials_processing.html">材料と加工フラッシュカードを開く</a></p>
+      </details>
+      <details class="summary-info">
+        <summary>エネルギー変換に関する技術</summary>
+        <p><a href="flashcards_materials_processing.html">エネルギー変換フラッシュカードを開く</a></p>
+      </details>
+      <details class="summary-info">
+        <summary>情報に関する技術</summary>
+        <p><a href="flashcards_information_tech.html">情報領域フラッシュカードを開く</a></p>
+      </details>
+      <details class="summary-info">
+        <summary>SDGs実践思考</summary>
+        <p><a href="flashcards_sdgs_thinking.html">SDGs実践思考フラッシュカードを開く</a></p>
+      </details>
+      <details class="summary-info">
+        <summary>自然主義のまちがい</summary>
+        <p><a href="flashcards_naturalistic_fallacy.html">自然主義のまちがいフラッシュカードを開く</a></p>
+      </details>
+    </section>
+
+    <details>
+      <summary>STEAMってなに？</summary>
+      <p>「フラッシュカード」でも <strong>科学（S）</strong>、<strong>技術（T）</strong>、<strong>設計（E）</strong>、<strong>美しさ（A）</strong>、<strong>数で考える（M）</strong> のすべてを活かせます。</p>
+      <p>たとえば、用語の背景やつながりを考えたり（S）、実際の技術に使う言葉を知ったり（T）、記録や整理を工夫したり（E）、意味を自分なりにまとめたり（A）、カードの枚数や正答率を数で見たり（M）します。</p>
+      <p>くわしくは <a href="../steam_link.html">STEAMガイド</a> を見てね。</p>
+    </details>
+
+    <details open>
+      <summary>カードをやるときのポイント</summary>
+      <ul>
+        <li>わからないことは何回も見なおそう</li>
+        <li>カードはランダムに出してみよう</li>
+        <li>覚えたら次の領域へ進もう</li>
+        <li>発音・読み上げもしてみよう</li>
+      </ul>
+    </details>
+  </main>
+
+  <footer>
+    <p>© 2025 my-tech-drills Project</p>
+  </footer>
+</body>
+</html>

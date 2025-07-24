@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>my-tech-drills | 技術ドリル 総合TOP</title>
+  <link rel="stylesheet" href="common/style.css" />
+  <style>
+    body {
+      text-align: center;
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header, footer {
+      text-align: center;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    #learning-promise {
+      border: 2px solid #333;
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 2rem auto;
+      background-color: #f9f9f9;
+      max-width: 900px;
+      text-align: left; /* 学びの約束は枠内だけ左揃え */
+    }
+
+    #learning-promise h2 {
+      margin-top: 0;
+    }
+
+    #learning-promise button {
+      display: block;
+      margin: 1rem auto 0 auto;
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      background: #4CAF50;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    #learning-promise button:hover {
+      background: #45a049;
+    }
+
+    nav {
+      max-width: 900px;
+      margin: 2rem auto;
+      text-align: left; /* メニューだけ左揃え */
+    }
+
+    nav ul {
+      padding-left: 1rem;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+    }
+
+    main h2 {
+      text-align: left; /* タイトルは左揃え */
+    }
+
+    main p {
+      text-align: center; /* 本文はセンター */
+    }
+
+    footer {
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    @media screen and (max-width: 600px) {
+      #learning-promise {
+        padding: 1.2rem;
+      }
+
+      nav, main {
+        padding: 0 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>技術 my-tech-drills</h1>
+
+    <div id="learning-promise">
+      <h2>学びの約束</h2>
+      <p>「技術」は人と人々の暮らしと自然をつなぐ仕組みを学ぶ科目です。</p>
+      <p>「科学」の根拠と「倫理」（りんり・地域や学校など世の中の一員として、何が正しくて何が間違っているかを考え、より良い人々の暮らしを作るために、みんなで守るべきルールや考え方）の価値判断を混同しないで考えます。</p>
+      <p>「正解が一つとは限らない問い」を自分と地域に当てはめます。</p>
+      <p>便利さとリスクを比べて「意思決定できる力」を育てます。</p>
+      <p>このドリルは、物語と問いを通して「問いを止めない力」を育てます。</p>
+      <p>学びの約束をいつでも見返して、自分の暮らしに必要な技術を考え続けるようにしましょう。</p>
+<p>
+  <label>読み上げスピード:
+    <select id="speechRate">
+      <option value="1.0">1倍速</option>
+      <option value="2.0" selected>2倍速</option>
+    </select>
+  </label>
+</p>
+
+      <button id="speak-btn">学びの約束を読み上げる</button>
+    </div>
+
+    <p>
+      <a href="README.html">技術の問いに立ち戻る</a> |
+      <a href="my-tech-drills.html">学びの進め方を確認する</a>
+    </p>
+
+
+
+<script>
+  document.getElementById('speak-btn').addEventListener('click', function() {
+    const promiseText = [
+         "ひとつ、、「技術」は人と人々の暮らしと自然をつなぐ仕組みを学ぶ科目です。",
+          "ひとつ、、「科学」の根拠と「倫理」、りんり、地域や学校など世の中の一員として、何が正しくて何が間違っているかを考え、よりよい人々の暮らしを作るために、みんなで守るべきルールや考え方の価値判断を混同しないで考えます。",
+          "ひとつ、、「正解が一つとは限らない問い」を自分と地域に当てはめます。",
+          "ひとつ、、便利さとリスクを比べて「意思決定できる力」を育てます。",
+          "ひとつ、、このドリルは、物語と問いを通して問いを止めない力を育てます。",
+      "学びの約束をいつでも見返して、自分の暮らしに必要な技術を考え続けるようにしましょう。",
+      "2025年、こまつしま中学校、かつうら中学校、かもだに中学校、技術 my-tech-drills Projectに著作権。"
+    ];
+    speechSynthesis.cancel();
+    const utter = new SpeechSynthesisUtterance(promiseText.join(" "));
+    utter.lang = 'ja-JP';
+    // ここで選択されたスピードを反映
+    const rate = parseFloat(document.getElementById('speechRate').value);
+    utter.rate = rate;
+    speechSynthesis.speak(utter);
+  });
+</script>
+
+  </header>
+
+  <nav>
+    <h2>ドリルメニュー</h2>
+    <ul>
+      <li><a href="materials_processing/index.html">材料と加工に関する技術</a></li>
+      <li><a href="energy_conversion/index.html">エネルギー変換に関する技術</a></li>
+      <li><a href="bio_cultivation/index.html">生物育成に関する技術</a></li>
+      <li><a href="information_tech/index.html">情報に関する技術</a></li>
+      <li><a href="sdgs_thinking/index.html">SDGs実践思考(クリティカルシンキング)</a></li>
+      <li><a href="naturalistic_fallacy/index.html">自然主義的まちがい</a></li>
+      <li><a href="tech_flashcards/index.html">フラッシュカード集</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <h2>ようこそ 技術 my-tech-drills へ</h2>
+    <p>このドリルは、<strong>物語</strong>と<strong>問い</strong>を通して「問いを止めない力」を育てます。</p>
+    <p>学びの約束をいつでも見返して、自分の暮らしに必要な技術を考え続けるようにしましょう。</p>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 小松島中学校 勝浦中学校 加茂谷中学校 技術 my-tech-drills Project</p>
+  </footer>
+</body>
+</html>

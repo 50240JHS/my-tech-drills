@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>生物育成 問いと構造カード</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 40px;
+      text-align: center;
+    }
+    .card {
+      border: 2px solid #388E3C;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 700px;
+      text-align: left;
+    }
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+    }
+    #progress-bar {
+      width: 100%;
+      background: #eee;
+      border-radius: 5px;
+      overflow: hidden;
+      margin: 20px 0;
+    }
+    #progress-bar-inner {
+      height: 20px;
+      background: #66BB6A;
+      width: 0%;
+      text-align: center;
+      color: #fff;
+    }
+    #controls {
+      margin: 20px;
+      text-align: center;
+    }
+    label {
+      margin: 0 10px;
+    }
+    h2 {
+      color: #2E7D32;
+    }
+  </style>
+</head>
+<body>
+  <h1>生物育成：問いと構造カード</h1>
+
+  <div id="progress-bar">
+    <div id="progress-bar-inner">0%</div>
+  </div>
+
+  <div class="card" id="card">
+    <h2 id="title"></h2>
+    <p id="question"></p>
+    <p id="structure"></p>
+    <div id="controls">
+      <label>スピード:
+        <select id="speed">
+          <option value="1">1.0x</option>
+          <option value="1.5">1.5x</option>
+          <option value="2">2.0x</option>
+          <option value="2.5">2.5x</option>
+        </select>
+      </label>
+      <label><input type="checkbox" id="autoPlay"> オート再生</label>
+    </div>
+    <div style="text-align:center;">
+      <button onclick="speak()">🔊 読み上げ</button>
+      <button onclick="nextCard()">➡ 次へ</button>
+    </div>
+  </div>
+
+  <script>
+    const cards = [
+      {
+        title: "植物はなぜ光を必要とするの？",
+        question: "光合成って、どんな仕組み？",
+        structure: "植物は太陽の光、水、空気中の二酸化炭素を使って栄養（デンプンなど）を作り出します。これを光合成と呼びます。"
+      },
+      {
+        title: "種まき後、すぐには芽が出ないのはなぜ？",
+        question: "発芽に必要な条件は？",
+        structure: "発芽には水・空気・適切な温度が必要です。光は必ずしも必要ではありません。"
+      },
+      {
+        title: "どうして間引きをするの？",
+        question: "間引きにはどんな意味がある？",
+        structure: "たくさんの芽が育つと、栄養や光が足りなくなります。強い芽だけを残すことで、よく育ちます。"
+      },
+      {
+        title: "育てる環境によって植物の育ち方はどう変わる？",
+        question: "育成環境の要素って何？",
+        structure: "温度、光、水、土の種類などの条件で植物の生長に違いが出ます。"
+      },
+      {
+        title: "生き物の育て方に正解はあるの？",
+        question: "育てるとはどういうこと？",
+        structure: "生物を観察しながら環境を整え、必要に応じて調整することが育てるという行動につながります。"
+      }
+    ];
+
+    let current = 0;
+
+    function updateProgress() {
+      const percent = Math.round(((current + 1) / cards.length) * 100);
+      document.getElementById("progress-bar-inner").style.width = percent + "%";
+      document.getElementById("progress-bar-inner").textContent = `${current + 1} / ${cards.length} (${percent}%)`;
+    }
+
+    function showCard() {
+      const c = cards[current];
+      document.getElementById("title").textContent = c.title;
+      document.getElementById("question").textContent = "🟢 問い: " + c.question;
+      document.getElementById("structure").textContent = "🟩 構造: " + c.structure;
+      updateProgress();
+    }
+
+    function speak() {
+      speechSynthesis.cancel();
+      const c = cards[current];
+      const utter = new SpeechSynthesisUtterance(`${c.title}。問い：${c.question}。構造：${c.structure}`);
+      utter.lang = 'ja-JP';
+      utter.rate = parseFloat(document.getElementById("speed").value);
+      utter.onend = function () {
+        if (document.getElementById("autoPlay").checked) {
+          nextCard();
+        }
+      };
+      speechSynthesis.speak(utter);
+    }
+
+    function nextCard() {
+      speechSynthesis.cancel();
+      if (current < cards.length - 1) {
+        current++;
+      } else {
+        current = 0;
+      }
+      showCard();
+      if (document.getElementById("autoPlay").checked) {
+        speak();
+      }
+    }
+
+    showCard();
+  </script>
+
+  <footer>
+    <p>&copy; 2025 my-tech-drills Project</p>
+  </footer>
+</body>
+</html>

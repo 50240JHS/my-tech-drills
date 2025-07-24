@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ガイダンス はじめの一歩</title>
+  <style>
+    body { font-family: sans-serif; background-color: #fdfcf9; padding: 1em; }
+    h1 { text-align: center; }
+    .category-buttons button {
+      margin: 0.3em; padding: 0.5em 1em;
+      font-size: 1em;
+    }
+    .flashcard { border: 1px solid #aaa; border-radius: 6px; padding: 1em; margin: 1em 0; background-color: #fff; }
+    .front { font-weight: bold; font-size: 1.1em; color: #333; }
+    .back { margin-top: 0.5em; color: #555; }
+  </style>
+</head>
+<body>
+
+<h1>◯ ガイダンス はじめの一歩</h1>
+    <p><a href="../index.html">🏠 総合TOPへもどる</a></p>
+<div class="category-buttons">
+  <button onclick="showCategory('tool')">🔧 道具観</button>
+  <button onclick="showCategory('relation')">🤝 間柄観</button>
+  <button onclick="showCategory('optimize')">🔁 最適化</button>
+</div>
+   <section class="menu-section">
+      <h2>メニュー</h2>
+      <details class="summary-info">
+        <summary>フラッシュカード（用語のれんしゅう）
+        <p><a href="../my-tech-flashcards/flashcards_energy_conversion.html">フラッシュカードを開く</a></p>
+        </summary>
+     </details>
+    </section>
+<div id="flashcards"></div>
+
+<script>
+const flashcardData = {
+  tool: [
+    { front: "道具とは何か？", back: "使いこなすために、しくみや背景を理解しているもの。使い手の意図と工夫が問われる。" },
+    { front: "なぜ素材の特性を知るのか？", back: "木や金属、プラスチックなど、性質によって加工方法も変わる。「合う・合わない」を見抜く力。" },
+    { front: "情報はどう使えばよい？", back: "情報は“道具”にも“材料”にもなる。目的に合わせて選び、正しく扱う視点が必要。" },
+    { front: "自分自身も道具？", back: "自分の考えや身体の動き、感覚も「使いこなす力」に含まれる。自己理解が土台となる。" }
+  ],
+  relation: [
+    { front: "間柄とは何か？", back: "自分と他者、自分と環境との関係のこと。「つながりの中で」役割や意味が生まれる。" },
+    { front: "なぜ協働するのか？", back: "協働することで一人では見えなかった視点や解決方法が見えてくる。" },
+    { front: "自然との間柄をどう考える？", back: "資源やエネルギーの使い方は自然との関係を反映する。「畏敬」「調和」「循環」も大切。" },
+    { front: "地域社会との間柄は？", back: "自分の生活と地域社会との関係に気づくと、「誰のために」「何のために」が見えてくる。" }
+  ],
+  optimize: [
+    { front: "PDCAとは？", back: "Plan（計画）→ Do（実行）→ Check（評価）→ Act（改善）のサイクルで学びを深める方法。" },
+    { front: "なぜふり返るの？", back: "自分の考えや行動を見直すことで、よりよい方法や考え方が生まれる。" },
+    { front: "最適って誰にとって？", back: "自分だけでなく、周囲の人や未来の人にとってもよい状態かを考える。" },
+    { front: "問いで改善？", back: "問いを立てることは、次の行動や学びの方向を決める「羅針盤」になる。" }
+  ]
+};
+
+function showCategory(cat) {
+  const cards = flashcardData[cat];
+  const container = document.getElementById("flashcards");
+  container.innerHTML = "";
+  cards.forEach(card => {
+    const div = document.createElement("div");
+    div.className = "flashcard";
+    div.innerHTML = `<div class="front">${card.front}</div><div class="back">${card.back}</div>`;
+    container.appendChild(div);
+  });
+}
+
+// 初期表示
+showCategory('tool');
+</script>
+
+</body>
+</html>

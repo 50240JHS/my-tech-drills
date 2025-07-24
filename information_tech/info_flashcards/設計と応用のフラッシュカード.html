@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>情報：設計・応用カード</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f3f9f9;
+      padding: 40px;
+      text-align: center;
+    }
+    .card {
+      border: 2px solid #0097a7;
+      border-radius: 10px;
+      background-color: #ffffff;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 700px;
+      text-align: left;
+    }
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+    }
+    #progress-bar {
+      width: 100%;
+      background: #ccc;
+      border-radius: 5px;
+      overflow: hidden;
+      margin: 20px 0;
+    }
+    #progress-bar-inner {
+      height: 20px;
+      background: #0097a7;
+      width: 0%;
+      color: white;
+      text-align: center;
+    }
+    #controls {
+      margin: 20px;
+    }
+    label {
+      margin: 0 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>情報：設計・応用カード</h1>
+
+  <div id="progress-bar">
+    <div id="progress-bar-inner">0%</div>
+  </div>
+
+  <div class="card" id="card">
+    <h2 id="question"></h2>
+    <p id="explanation"></p>
+    <div id="controls">
+      <label>スピード:
+        <select id="speed">
+          <option value="1">1.0x</option>
+          <option value="1.5">1.5x</option>
+          <option value="2">2.0x</option>
+        </select>
+      </label>
+      <label><input type="checkbox" id="autoPlay"> オート再生</label>
+    </div>
+    <div>
+      <button onclick="speak()">🔊 読み上げる</button>
+      <button onclick="nextCard()">➡ 次へ</button>
+    </div>
+  </div>
+
+  <script>
+    const cards = [
+      {
+        question: "どんな情報を集めるべきか？",
+        explanation: "目的に応じて必要な情報を見極めることが、設計や判断の出発点になります。"
+      },
+      {
+        question: "プログラムを作るとき、何から始める？",
+        explanation: "動かしたい結果や条件を明確にし、流れを図にして整理することが大切です。"
+      },
+      {
+        question: "データを使った表現とは？",
+        explanation: "グラフや図、色、音などでデータを視覚化・聴覚化することで、伝わりやすくなります。"
+      },
+      {
+        question: "どんな仕組みにすれば伝わりやすい？",
+        explanation: "見る人の立場に立って、簡潔さ・順序・操作のしやすさなどを考える設計が大切です。"
+      },
+      {
+        question: "情報技術は社会でどう使われている？",
+        explanation: "買い物、交通、医療、防災など、私たちの暮らしを支える多くの場面で活用されています。"
+      },
+      {
+        question: "どんな工夫で分かりやすくなる？",
+        explanation: "必要な情報だけを強調したり、動きを加えたりすることで、伝える力が高まります。"
+      },
+      {
+        question: "マイクロビットで何が設計できる？",
+        explanation: "LED表示や音、センサー反応などを組み合わせて、自分なりのしくみを作ることができます。"
+      }
+    ];
+
+    let current = 0;
+
+    function updateProgress() {
+      const percent = Math.round(((current + 1) / cards.length) * 100);
+      document.getElementById("progress-bar-inner").style.width = percent + "%";
+      document.getElementById("progress-bar-inner").textContent = `${current + 1} / ${cards.length} (${percent}%)`;
+    }
+
+    function showCard() {
+      const c = cards[current];
+      document.getElementById("question").textContent = c.question;
+      document.getElementById("explanation").textContent = c.explanation;
+      updateProgress();
+    }
+
+    function speak() {
+      speechSynthesis.cancel();
+      const c = cards[current];
+      const utter = new SpeechSynthesisUtterance(`${c.question}。${c.explanation}`);
+      utter.lang = 'ja-JP';
+      utter.rate = parseFloat(document.getElementById("speed").value);
+      utter.onend = () => {
+        if (document.getElementById("autoPlay").checked) {
+          nextCard();
+        }
+      };
+      speechSynthesis.speak(utter);
+    }
+
+    function nextCard() {
+      speechSynthesis.cancel();
+      current = (current + 1) % cards.length;
+      showCard();
+      if (document.getElementById("autoPlay").checked) {
+        speak();
+      }
+    }
+
+    showCard();
+  </script>
+
+  <footer>
+    <p>&copy; 2025 my-tech-drills Project</p>
+  </footer>
+</body>
+</html>

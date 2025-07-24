@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>情報：深く問うカード</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #fdfaf5;
+      padding: 40px;
+      text-align: center;
+    }
+    .card {
+      border: 2px solid #9c27b0;
+      border-radius: 10px;
+      background-color: #ffffff;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 700px;
+      text-align: left;
+    }
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+    }
+    #progress-bar {
+      width: 100%;
+      background: #ccc;
+      border-radius: 5px;
+      overflow: hidden;
+      margin: 20px 0;
+    }
+    #progress-bar-inner {
+      height: 20px;
+      background: #9c27b0;
+      width: 0%;
+      color: white;
+      text-align: center;
+    }
+    #controls {
+      margin: 20px;
+    }
+    label {
+      margin: 0 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>情報　深い問いカード</h1>
+
+  <div id="progress-bar">
+    <div id="progress-bar-inner">0%</div>
+  </div>
+
+  <div class="card" id="card">
+    <h2 id="question"></h2>
+    <p id="explanation"></p>
+    <div id="controls">
+      <label>スピード:
+        <select id="speed">
+          <option value="1">1.0x</option>
+          <option value="1.5">1.5x</option>
+          <option value="2">2.0x</option>
+        </select>
+      </label>
+      <label><input type="checkbox" id="autoPlay"> オート再生</label>
+    </div>
+    <div>
+      <button onclick="speak()">🔊 読み上げる</button>
+      <button onclick="nextCard()">➡ 次へ</button>
+    </div>
+  </div>
+
+  <script>
+    const cards = [
+      {
+        question: "情報は誰のもの？",
+        explanation: "自分が発した情報も、他人の目に触れた時点で共有財産のようになることもある。"
+      },
+      {
+        question: "情報が偏ると何が起こる？",
+        explanation: "知らずに信じ込んでしまうことがある。多様な視点で考える力が問われる。"
+      },
+      {
+        question: "情報で人は動かせる？",
+        explanation: "広告、SNS、ニュース…。情報の力で人の判断や感情が動く現実がある。"
+      },
+      {
+        question: "正しければ良い？",
+        explanation: "事実でも、それをどう伝えるかによって印象や意味は大きく変わることがある。"
+      },
+      {
+        question: "伝わることと、伝えることの違いは？",
+        explanation: "自分が伝えたつもりでも、相手にどう受け取られたかは別。双方向の意識が必要。"
+      },
+      {
+        question: "AIは本当に中立？",
+        explanation: "使う人や設計者の意図、データの偏りがAIの判断に影響することもある。"
+      },
+      {
+        question: "自由な表現とは？",
+        explanation: "表現の自由と、他人を傷つけない工夫や責任のバランスが求められる。"
+      }
+    ];
+
+    let current = 0;
+
+    function updateProgress() {
+      const percent = Math.round(((current + 1) / cards.length) * 100);
+      document.getElementById("progress-bar-inner").style.width = percent + "%";
+      document.getElementById("progress-bar-inner").textContent = `${current + 1} / ${cards.length} (${percent}%)`;
+    }
+
+    function showCard() {
+      const c = cards[current];
+      document.getElementById("question").textContent = c.question;
+      document.getElementById("explanation").textContent = c.explanation;
+      updateProgress();
+    }
+
+    function speak() {
+      speechSynthesis.cancel();
+      const c = cards[current];
+      const utter = new SpeechSynthesisUtterance(`${c.question}。${c.explanation}`);
+      utter.lang = 'ja-JP';
+      utter.rate = parseFloat(document.getElementById("speed").value);
+      utter.onend = () => {
+        if (document.getElementById("autoPlay").checked) {
+          nextCard();
+        }
+      };
+      speechSynthesis.speak(utter);
+    }
+
+    function nextCard() {
+      speechSynthesis.cancel();
+      current = (current + 1) % cards.length;
+      showCard();
+      if (document.getElementById("autoPlay").checked) {
+        speak();
+      }
+    }
+
+    showCard();
+  </script>
+
+  <footer>
+    <p>&copy; 2025 my-tech-drills Project</p>
+  </footer>
+</body>
+</html>
