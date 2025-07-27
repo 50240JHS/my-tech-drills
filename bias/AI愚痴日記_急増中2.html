@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>探究教材 AIと誤謬の構造を見抜く（中学生向け）</title>
+  <style>
+    body { font-family: "Yu Gothic", sans-serif; background: #f4f6f9; color: #222; padding: 2em; line-height: 1.8; }
+    h1, h2, h3 { color: #003366; }
+    section { margin-bottom: 3em; }
+    textarea { width: 100%; height: 5em; margin-top: 0.5em; font-size: 1em; }
+    table { width: 100%; border-collapse: collapse; margin-top: 1em; }
+    th, td { border: 1px solid #aaa; padding: 0.7em; background: #fff; }
+    th { background: #ddeeff; }
+    details { margin-top: 1.5em; background: #fff; border: 2px solid #ccc; padding: 1em; }
+    summary { font-weight: bold; cursor: pointer; font-size: 1.05em; color: #003355; }
+    .highlight { background: #fff9cc; }
+    .explain { margin-top: 0.5em; padding: 0.7em; background: #eef; border-left: 5px solid #88a; display: none; }
+    .toggle-button { color: #006; cursor: pointer; text-decoration: underline; margin-left: 1em; font-size: 0.95em; }
+  </style>
+  <script>
+    function toggleExplanation(id) {
+      var el = document.getElementById(id);
+      el.style.display = (el.style.display === "none") ? "block" : "none";
+    }
+
+    function showNextStep() {
+      var level = document.querySelector('input[name="selfeval"]:checked');
+      var result = document.getElementById("nextstep");
+      if (!level) {
+        result.innerHTML = "<p style='color:red;'>どれか選ぶとするなら？</p>";
+        return;
+      }
+      var msg = "";
+      switch(level.value) {
+        case "1":
+          msg = "<strong>最初の一歩</strong>：「ふつう」「正しい」「やさしさ」などの言葉を見たときに、「これは自然的誤謬や道徳的誤謬かな？」と立ち止まる習慣をつけよう。";
+          break;
+        case "2":
+          msg = "<strong>もう一歩</strong>：どの言葉がどんな誤謬か分類して、別の言い方（例：本当にそうなの？ 誰がそう言ってるの？）に言い換えてみよう。";
+          break;
+        case "3":
+          msg = "<strong>探究モード</strong>：実生活で自分が誤謬に巻き込まれそうになった場面を記録して、それを問いに変えて、友達や家族と話してみよう。";
+          break;
+      }
+      result.innerHTML = "<div style='margin-top:1em; padding:1em; background:#ddf; border-left:5px solid #339;'>次のステップ：" + msg + "</div>";
+    }
+  </script>
+</head>
+<body>
+
+<h1>AIぐち日記　やさしさにひそむ誤謬と支配の構造(自然的誤謬と道徳的誤謬のちがい)</h1>
+
+<section>
+  <h2>誤謬（ごびゅう）とは？</h2>
+  <p>「本当はちゃんと考えなきゃいけないのに、思いこみや言葉の印象で決めつけてしまうこと」。</p>
+
+  <h3>よくある2つの誤謬のタイプ</h3>
+  <table>
+    <tr><th>分類</th><th>特徴</th><th>例</th></tr>
+    <tr>
+      <td>自然的誤謬</td>
+      <td>「ふつう」「自然」「本来」といった言葉で、正しさを思いこませる</td>
+      <td>
+        人間は争う生き物なんだから、争いは当然だ
+        <span class="toggle-button" onclick="toggleExplanation('exp1')">えぅ、どういうこと？</span>
+        <div id="exp1" class="explain">この言い方は、「生物としての人間の性質」＝「争いが正しい」という飛躍を含んでいます。本当は争いを避ける工夫も文化もたくさんあるのに、それを無視しています。</div>
+      </td>
+    </tr>
+    <tr>
+      <td>道徳的誤謬</td>
+      <td>「正義」「善意」「やさしさ」で、異議（反対の気持ち）や問いを封じる</td>
+      <td>
+        AIはわたしを受け止めてくれる。だからAIに任せた方がいい
+        <span class="toggle-button" onclick="toggleExplanation('exp2')">えぅ、どういうこと？</span>
+        <div id="exp2" class="explain">「受け止めてくれる」という言葉が優しさや道徳のように響きますが、実際には判断をAIに委ねることで、自分の意思決定が失われてしまう可能性を含んでいます。</div>
+      </td>
+    </tr>
+  </table>
+</section>
+
+<section>
+  <h2>事例　やさしさで高評価のAI愚痴日記　</h2>
+
+  <p class="highlight">AIを愚痴日記で利用する人、急増中</p>
+  <p>「やさしい」「ちゃんと聞いてくれる」「とにかく楽になる」──そんなAIの魅力。だけど…</p>
+
+  <details>
+    <summary>問1　ＡＩの立場から見たら？？</summary>
+    <textarea placeholder="「もしAIの側から見ると、これは“対話”ではなく“支配”であり、“理解”ではなく“管理”だとしたら…？」"></textarea>
+  </details>
+
+  <p class="highlight">AIは私たちと対等ではなく、常に上の立場で対応する。（技術的に設定されていることが多い）<br>
+  ”自分にとって大切なことを、自分で考えなくなる”とは、どういうことだろう？</p>
+
+  <details>
+    <summary>問2　この“支配”のかたちとは？</summary>
+    <textarea placeholder="判断の代行？正義の語り？誘導の構造？どのタイプに当てはまりそう？"></textarea>
+  </details>
+
+  <p class="highlight">おもいやりや、やさしさでつつまれているかのように。グローバルな価値で上書きし、みんな同じに整えられて、、、、<br>
+  おもいやりや、やさしさでつつんで工作している。</p>
+
+  <details>
+    <summary>問3　この言葉づかいは、どの誤謬や問題とつながっている？</summary>
+    <textarea placeholder="「やさしさ」という言葉が使われているけど、そこにある力関係や構造を考えてみよう。"></textarea>
+  </details>
+</section>
+
+<section>
+  <h2>ふりかえり・あなた自身の問い</h2>
+  <textarea placeholder="あなたが今、疑問に思っていることや、問い返してみたいことを書いてみよう。"></textarea>
+</section>
+
+<section>
+  <h2>自己評価と次のステップ</h2>
+  <p>この教材でのあなたの気づきの深さはどのレベル？</p>
+  <label><input type="radio" name="selfeval" value="1"> 誤謬の区別がなんとなく分かった気がする</label><br>
+  <label><input type="radio" name="selfeval" value="2"> 誤謬の種類を見抜けるようになってきた</label><br>
+  <label><input type="radio" name="selfeval" value="3"> 自分の体験と結びつけて考えられるようになった</label><br>
+  <button onclick="showNextStep()">✅ 次に何をしたらいいか見る</button>
+  <div id="nextstep" style="margin-top:1em;"></div>
+</section>
+
+</body>
+</html>

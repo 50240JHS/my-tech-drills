@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>本格ドリル道場  誤謬分類トレーニング</title>
+  <style>
+    body { font-family: sans-serif; background: #f5f5f5; padding: 2em; }
+    .container { max-width: 800px; margin: auto; background: #fff; padding: 2em; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    h1 { color: #003366; text-align: center; }
+    .question { margin-top: 2em; font-size: 1.2em; }
+    .options { margin-top: 1em; }
+    .options button { margin: 0.5em; padding: 0.8em 1.5em; border-radius: 5px; border: none; background: #0074cc; color: white; cursor: pointer; }
+    .options button:hover { background: #005fa3; }
+    #feedback { margin-top: 1.5em; font-weight: bold; }
+    .summary { margin-top: 2em; }
+    .timer { color: #c00; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>本格ドリル道場   誤謬分類トレーニング</h1>
+    <div id="status">
+      <p><span id="counter">1</span>/30問中</p>
+      <p>残り時間：<span id="timer" class="timer">15</span>秒</p>
+    </div>
+    <div class="question" id="question"></div>
+    <div class="options" id="options"></div>
+    <div id="feedback"></div>
+
+    <div class="summary" id="summary" style="display:none;">
+      <h2>結果まとめ</h2>
+      <p>正解：<span id="correctCount">0</span> / 30問</p>
+      <p><button onclick="downloadCSV()">CSVで結果を保存</button></p>
+      <p><a href="bias_dojo_stage2.html">道場トップへ戻る</a></p>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      { q: "AIが私たちを守ってくれるから安心だ、と思い込む", a: "道徳的誤謬" },
+      { q: "人間は争うものだから、戦争はしかたがない", a: "自然的誤謬" },
+      { q: "みんながAIを使っているから、自分も使うべきだ", a: "構造的支配" },
+      { q: "AIは客観的だから判断も正しいはずだ", a: "道徳的誤謬" },
+      { q: "本能だから仕方ない、で片づけてしまう", a: "自然的誤謬" },
+      // 以下、さらに追加して最大30問
+    ];
+    const maxQuestions = 30;
+    const timeLimit = 15;
+    let shuffled = [];
+    let index = 0;
+    let score = 0;
+    let timer;
+    let seconds = timeLimit;
+    const results = [];
+
+    function startTimer() {
+      seconds = timeLimit;
+      document.getElementById("timer").textContent = seconds;
+      timer = setInterval(() => {
+        seconds--;
+        document.getElementById("timer").textContent = seconds;
+        if (seconds <= 0) {
+          clearInterval(timer);
+          showFeedback(false, "時間切れ");
+        }
+      }, 1000);
+    }
+
+    function showQuestion() {
+      if (index >= maxQuestions || index >= shuffled.length) {
+        finishQuiz();
+        return;
+      }
+
+      document.getElementById("feedback").textContent = "";
+      document.getElementById("counter").textContent = index + 1;
+
+      const q = shuffled[index];
+      document.getElementById("question").textContent = q.q;
+
+      const options = ["道徳的誤謬", "自然的誤謬", "構造的支配"];
+      const optionsDiv = document.getElementById("options");
+      optionsDiv.innerHTML = "";
+
+      options.forEach(option => {
+        const btn = document.createElement("button");
+        btn.textContent = option;
+        btn.onclick = () => {
+          clearInterval(timer);
+          const correct = option === q.a;
+          showFeedback(correct, option);
+        };
+        optionsDiv.appendChild(btn);
+      });
+
+      startTimer();
+    }
+
+    function showFeedback(correct, userAnswer) {
+      const feedback = document.getElementById("feedback");
+      if (correct) {
+        feedback.textContent = "⭕ 正解！";
+        score++;
+      } else {
+        feedback.textContent = `❌ 不正解。正しくは「${shuffled[index].a}」`;
+      }
+
+      results.push({
+        No: index + 1,
+        Question: shuffled[index].q,
+        Answer: shuffled[index].a,
+        YourAnswer: userAnswer,
+        Correct: correct ? "◯" : "×"
+      });
+
+      index++;
+      setTimeout(showQuestion, 1500);
+    }
+
+    function finishQuiz() {
+      document.getElementById("summary").style.display = "block";
+      document.getElementById("correctCount").textContent = score;
+      document.getElementById("question").style.display = "none";
+      document.getElementById("options").style.display = "none";
+      document.getElementById("status").style.display = "none";
+    }
+
+    function shuffleArray(array) {
+      let newArray = array.slice();
+      for (let i = newArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+      }
+      return newArray;
+    }
+
+    function downloadCSV() {
+      const headers = ["No", "Question", "Answer", "YourAnswer", "Correct"];
+      const rows = results.map(r => [r.No, `"${r.Question}"`, r.Answer, r.YourAnswer, r.Correct]);
+
+      let csv = headers.join(",") + "\n" + rows.map(r => r.join(",")).join("\n");
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "bias_drill_results.csv";
+      link.click();
+    }
+
+    // Start
+    shuffled = shuffleArray(questions).slice(0, maxQuestions);
+    showQuestion();
+  </script>
+</body>
+</html>

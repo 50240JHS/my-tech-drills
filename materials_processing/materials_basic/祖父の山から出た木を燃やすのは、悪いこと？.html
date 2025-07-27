@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>火と木と暮らしのまなざし  祖父の山から出た木を燃やすのは、悪いこと？</title>
+  <style>
+    body { font-family: sans-serif; line-height: 1.6; background: #fdfdfd; padding: 20px; }
+    h2 { background: #fce4cc; padding: 10px; border-left: 6px solid #ff9800; }
+    .step { margin: 20px 0; padding: 10px; border: 1px solid #ccc; background: #fff; }
+    .option { padding: 6px; margin: 4px 0; border: 1px solid #aaa; cursor: pointer; background: #ffe; }
+    .option:hover { background: #ffffcc; }
+    .feedback, .analysis, .final { display: none; margin-top: 10px; padding: 10px; background: #f0f0f0; border-left: 4px solid #999; }
+  </style>
+  <script>
+    function showFeedback(stepId, num) {
+      const feedbacks = document.querySelectorAll(`#${stepId} .feedback`);
+      feedbacks.forEach(el => el.style.display = 'none');
+      const chosen = document.getElementById(`${stepId}_fb${num}`);
+      if (chosen) chosen.style.display = 'block';
+    }
+
+    function showAnalysis(stepId) {
+      const analysis = document.querySelector(`#${stepId} .analysis`);
+      if (analysis) analysis.style.display = 'block';
+    }
+
+    function showFinal(stepId) {
+      const final = document.querySelector(`#${stepId} .final`);
+      if (final) final.style.display = 'block';
+    }
+  </script>
+</head>
+<body>
+
+<h1>火と木と暮らしのまなざし</h1>
+<div class="step" id="q001125424">
+  <h2>祖父の山から出た木を燃やすのは、悪いこと？</h2>
+  <p><strong>ちょっと気になるひとこと</strong><br>「自然の木を勝手に燃やすのはもったいない。木って残しておくべきでしょ？」</p>
+
+  <h3>STEP1  あなたはどう思う？</h3>
+  <div class="option" onclick="showFeedback('q001125424', 1)">1. 木を切って燃やすなんて自然破壊だ</div>
+  <div class="option" onclick="showFeedback('q001125424', 2)">2. 燃やさずに全部保存しておく方が自然にやさしい</div>
+  <div class="option" onclick="showFeedback('q001125424', 3)">3. 山の健康と、木材利用の循環のバランスが大事</div>
+  <div class="option" onclick="showFeedback('q001125424', 4)">4. 昔のやり方は全部時代遅れ</div>
+
+  <div class="feedback" id="q001125424_fb1">→ 間伐や薪利用は、自然との共生の一部です。</div>
+  <div class="feedback" id="q001125424_fb2">→ 保存だけが善とは限りません。使って循環させることも必要です。</div>
+  <div class="feedback" id="q001125424_fb3">→ 森を守るとはどういうことか、視野を広げてみましょう。</div>
+  <div class="feedback" id="q001125424_fb4">→ 時代遅れというレッテルには要注意。意味を見直す視点を。</div>
+
+  <h3 onclick="showAnalysis('q001125424')" style="cursor:pointer;">STEP2   問い返してみる ▼</h3>
+  <div class="analysis">
+    <ul>
+      <li>木は残すだけでよいのか、それとも活かしてこそ？</li>
+      <li>山との関係をどう考える？</li>
+    </ul>
+    <h4>STEP3   どんな構造がある？</h4>
+    <ul>
+      <li>“燃やす＝自然破壊”という短絡的な価値判断</li>
+      <li>手入れの必要性を無視した自然理解の欠如</li>
+    </ul>
+    <h4>STEP4   行動につなげる問い</h4>
+    <p>→ あなたにとって、森を守るってどういうこと？</p>
+    <button onclick="showFinal('q001125424')">解説を見る</button>
+  </div>
+  <div class="final">
+    <p><strong>解説   </strong><br>間伐や薪利用は、森の健康を維持するための行為であり、適切な管理と利用の両立が自然との共生を支えます。</p>
+  </div>
+</div>
+
+</body>
+</html>

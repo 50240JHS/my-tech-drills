@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Stage 2｜ふつうのうらにある現実の見きわめ</title>
+  <link rel="stylesheet" href="../common/style.css">
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 2rem;
+      line-height: 1.8;
+      background-color: #fcfcfc;
+    }
+    h1, h2 {
+      color: #2a2a2a;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 0.4rem;
+    }
+    .highlight-box {
+      background-color: #e6f2ff;
+      border: 2px solid #3399cc;
+      padding: 1rem;
+      font-size: 1.1rem;
+      margin: 1rem 0;
+    }
+    .hint-section details {
+      margin: 1.5rem 0;
+      background-color: #f0f8ff;
+      padding: 1rem;
+      border-left: 4px solid #339;
+    }
+    .question {
+      margin: 1.5rem 0;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      background: #f9f9f9;
+    }
+    .question button {
+      margin: 0.4rem 0;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 4px;
+      background-color: #4caf50;
+      color: white;
+      cursor: pointer;
+    }
+    .question button:hover {
+      background-color: #388e3c;
+    }
+    .feedback {
+      margin-top: 0.6rem;
+      padding: 0.6rem;
+      background-color: #eef;
+      border-left: 4px solid #339;
+    }
+    .self-check {
+      border: 1px solid #aaa;
+      padding: 1rem;
+      margin: 2rem 0;
+      background-color: #f5f5f5;
+    }
+    .self-check label {
+      display: block;
+      margin: 0.4rem 0;
+    }
+    .message-box {
+      margin-top: 1rem;
+      padding: 1rem;
+      border: 2px dashed #999;
+      background-color: #ffffe0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Stage 2｜ふつうのうらにある現実の見きわめ</h1>
+
+  <section class="highlight-box">
+    「道具は便利で役に立つ」──<br>
+    それは本当に、どんな場面でも、誰にとってもそうなのだろうか？
+  </section>
+
+  <section>
+    <details>
+      <summary>🔍 ことのはじまりを感じてみよう</summary>
+      <p>
+        ユウタ：「やっぱり機械ってすごいよな。正確だし、間違わないし。」<br>
+        サクラ：「そうだね。でも、正確さって、使い方によるところもあるよね。」<br>
+        ユウタ：「え？でもボタン押せば勝手に動くし、設計通りになるじゃん。」<br>
+        サクラ：「たとえば、材料が湿気を吸ってたら、思ったとおりに削れないかもよ？」<br>
+        ユウタ：「あっ……たしかに木材って水分で変わるって習ったな。」
+      </p>
+    </details>
+  </section>
+
+  <section>
+    <details>
+      <summary>🌿 ふつうの奥にある声に耳をすませよう</summary>
+      <p>
+        サクラ：「それに、機械が間違わないようにするには、まわりがちゃんと整ってないといけないんだよ。」<br>
+        ユウタ：「つまり、正確な道具を使っても、環境とか準備によって結果は変わるってことか。」<br>
+        サクラ：「うん。だから『道具は便利』って思いこむ前に、『どんなときに？』って考えることが大事かも。」<br>
+        ユウタ：「そうか……技術って、使う人と場にあわせて考えるもんなんだな。」
+      </p>
+    </details>
+  </section>
+
+  <section class="question">
+    <h3>問い①：どんなとき、「道具は便利」という考えに注意が必要になる？</h3>
+    <button onclick="showFeedback(this, false)">いつでもどこでも、正確に使えるはずだから問題ない</button><br>
+    <button onclick="showFeedback(this, true)">使う人や場所、材料の状態によって結果が変わることがあるから</button>
+    <div class="feedback" style="display:none;"></div>
+  </section>
+
+  <section class="question">
+    <h3>問い②：「技術は人の役に立つ」は、どんなふうに考えるとよい？</h3>
+    <button onclick="showFeedback(this, true)">誰にとって・どんな場面で役立つのかを考える</button><br>
+    <button onclick="showFeedback(this, false)">人間が作ったものだから、無条件に良いと信じていい</button>
+    <div class="feedback" style="display:none;"></div>
+  </section>
+
+  <section class="self-check">
+    <h3>🪞 自分の見かたに立ち止まってみよう</h3>
+    <label><input type="radio" name="reflection" onclick="showMessage('◎ 道具の使われ方や背景に気づけたね。次のステージも深く考えてみよう。')"> ◎：ふつうの奥を見ようとできた</label>
+    <label><input type="radio" name="reflection" onclick="showMessage('△ もう少し、どうしてそう思ったのか言葉にしてみよう')"> △：考え始めたところ</label>
+    <label><input type="radio" name="reflection" onclick="showMessage('◯ 「役に立つ」ってどういうことか、家で誰かと話してみよう')"> ◯：まだよくわからない</label>
+    <div class="message-box" id="reflection-message"></div>
+  </section>
+
+  <div style="text-align: center; margin-top: 2rem;">
+    <label><input type="checkbox"> ✅ このステージを達成にする</label>
+  </div>
+
+  <script>
+    function showFeedback(button, isCorrect) {
+      const div = button.parentNode.querySelector(".feedback");
+      div.style.display = "block";
+      if (isCorrect) {
+        div.innerHTML = "✅ その通りです。道具や技術は、使う状況や人によって結果が変わることがあります。";
+      } else {
+        div.innerHTML = "❌ 「いつでも便利」と思いこむと、大切な準備や工夫に気づけなくなることがあります。";
+      }
+    }
+
+    function showMessage(msg) {
+      document.getElementById("reflection-message").innerText = msg;
+    }
+  </script>
+
+</body>
+</html>

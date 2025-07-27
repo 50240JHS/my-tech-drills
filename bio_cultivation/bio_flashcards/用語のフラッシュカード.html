@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>生物育成 基礎用語カード</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 40px;
+      text-align: center;
+    }
+    .card {
+      border: 2px solid #4CAF50;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 600px;
+      text-align: left;
+    }
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+    }
+    #progress-bar {
+      width: 100%;
+      background: #eee;
+      border-radius: 5px;
+      overflow: hidden;
+      margin: 20px 20px;
+    }
+    #progress-bar-inner {
+      height: 20px;
+      background: #4CAF50;
+      width: 0%;
+      text-align: center;
+      color: #fff;
+    }
+    #controls {
+      margin: 20px;
+      text-align: center;
+    }
+    label {
+      margin: 0 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>生物育成 基礎用語カード</h1>
+
+  <div id="progress-bar">
+    <div id="progress-bar-inner">0%</div>
+  </div>
+
+  <div class="card" id="card">
+    <h2 id="term"></h2>
+    <p id="text1"></p>
+    <div id="controls">
+      <label>スピード:
+        <select id="speed">
+          <option value="1">1.0x</option>
+          <option value="1.5">1.5x</option>
+          <option value="2">2.0x</option>
+          <option value="2.5">2.5x</option>
+          <option value="3">3.0x</option>
+        </select>
+      </label>
+      <label>
+        <input type="checkbox" id="autoPlay"> オート再生
+      </label>
+    </div>
+    <div style="text-align: center;">
+      <button onclick="speak()">🔊 読み上げ</button>
+      <button onclick="nextCard()">➡ 次へ</button>
+    </div>
+  </div>
+
+  <script>
+    const terms = [
+      {
+        term: "発芽",
+        text: "種子が水を吸って、芽が出ること。",
+        readText: "はつが。種子が水を吸って、芽が出ること。"
+      },
+      {
+        term: "光合成",
+        text: "植物が光と水、二酸化炭素を使って栄養を作る働き。",
+        readText: "こうごうせい。植物が光と水、二酸化炭素を使って栄養を作る働き。"
+      },
+      {
+        term: "間引き",
+        text: "植物が育ちやすいように、芽を間引いて数を減らすこと。",
+        readText: "まびき。植物が育ちやすいように、芽を間引いて数を減らすこと。"
+      },
+      {
+        term: "育成環境",
+        text: "植物や生き物が育つための周りの条件（光・水・温度など）。",
+        readText: "いくせいかんきょう。植物や生き物が育つための周りの条件。"
+      },
+      {
+        term: "生長",
+        text: "生き物が時間とともに大きくなったり変化すること。",
+        readText: "せいちょう。生き物が時間とともに大きくなったり変化すること。"
+      }
+    ];
+
+    let current = 0;
+
+    function updateProgress() {
+      const percent = Math.round(((current + 1) / terms.length) * 100);
+      document.getElementById("progress-bar-inner").style.width = percent + "%";
+      document.getElementById("progress-bar-inner").textContent = `${current + 1} / ${terms.length} (${percent}%)`;
+    }
+
+    function showCard() {
+      const t = terms[current];
+      document.getElementById("term").textContent = t.term;
+      document.getElementById("text1").textContent = t.text;
+      updateProgress();
+    }
+
+    function speak() {
+      speechSynthesis.cancel();
+      const t = terms[current];
+      const utter = new SpeechSynthesisUtterance(`${t.readText}`);
+      utter.lang = 'ja-JP';
+      utter.rate = parseFloat(document.getElementById("speed").value);
+      utter.onend = function() {
+        if (document.getElementById("autoPlay").checked) {
+          nextCard();
+        }
+      };
+      speechSynthesis.speak(utter);
+    }
+
+    function nextCard() {
+      speechSynthesis.cancel();
+      if (current < terms.length - 1) {
+        current++;
+      } else {
+        current = 0;
+      }
+      showCard();
+      if (document.getElementById("autoPlay").checked) {
+        speak();
+      }
+    }
+
+    showCard();
+  </script>
+
+  <footer>
+    <p>&copy; 2025 my-tech-drills Project</p>
+  </footer>
+</body>
+</html>

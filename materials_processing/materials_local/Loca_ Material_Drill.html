@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>国産素材 探究ドリル</title>
+  <link rel="stylesheet" href="../common/style.css">
+  <script src="../common/common_ui.js" defer></script>
+</head>
+<body>
+  <header>
+    <h1>地産地消・国消国産素材 探究ドリル</h1>
+    <p>現在のステージ  <span id="currentLayer">---</span></p>
+    <p>達成済みステージ  <span id="completedLayers">---</span></p>
+    <button onclick="progress.exportCSV()">進捗CSV出力</button>
+  </header>
+
+  <nav>
+    <button onclick="navigateTo('intro')">はじまりステージへ</button>
+    <button onclick="navigateTo('reflection')">振り返りステージへ</button>
+    <button onclick="toggleSteamView()">STEAM表示切替</button>
+    <p><a href="../index.html">材料と加工TOPからフラッシュカードへ</a></p>
+  <section id="intro">
+    <h2>はじまりステージ 地産地消・国消国産素材とは？</h2>
+    <p>日本で採れる木材・鉱物・繊維など地域の素材について調べてみよう。</p>
+    <button onclick="progress.updateLayer('導入ステージ')">このステージ 達成</button>
+  </section>
+
+  <section id="inquiry">
+    <h2>探求ステージ　地域素材の特徴と活用</h2>
+    <p>地域の気候や歴史と結びついた素材の良さを見つけてみよう。</p>
+    <button onclick="progress.updateLayer('探求ステージ')">このステージ 達成</button>
+  </section>
+
+  <section id="pursuit">
+    <h2>追究ステージ　未来に活かす国産素材</h2>
+    <p>地域の産業やものづくりと結びつけて新たな価値を考えよう。</p>
+    <button onclick="progress.updateLayer('追究ステージ')">このステージ 達成</button>
+  </section>
+
+  <section id="refinement">
+    <h2>研鑽ステージ　循環型活用と地域連携</h2>
+    <p>持続的な利用方法と地域ブランド化の可能性を探ってみよう。</p>
+    <button onclick="progress.updateLayer('研鑽ステージ')">このステージ 達成</button>
+  </section>
+
+  <section id="reflection">
+    <h2>振り返りステージ　学びとこれから</h2>
+    <p>素材探究から得たことをまとめ、次の問いへつなげよう。</p>
+    <button onclick="progress.updateLayer('振り返りステージ')">このステージ 達成</button>
+  </section>
+
+  <section>
+    <h2>STEAM視点</h2>
+    <div class="steam-view hidden">
+      <p>S: 素材の性質・科学的特徴</p>
+      <p>T: 加工・利用の技術</p>
+      <p>E: 素材を活かしたものづくり</p>
+      <p>A: 地域文化・デザインとの融合</p>
+      <p>M: 資源量・利用量の計算</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 my-tech-drills 国産素材 探究ドリル</p>
+  </footer>
+</body>
+</html>

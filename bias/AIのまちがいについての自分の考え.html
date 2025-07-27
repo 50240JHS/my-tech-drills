@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>AIとの対話型探究ドリル（誤謬と支配）</title>
+  <style>
+    body { font-family: sans-serif; background: #f9f9f9; padding: 2em; }
+    h1 { color: #003366; }
+    .bias-label { font-weight: bold; display: block; margin-top: 1em; }
+    textarea { width: 100%; height: 4em; margin-top: 0.5em; }
+    .progress-bar { display: flex; margin-top: 1em; height: 20px; background: #ccc; }
+    .progress { height: 100%; transition: width 0.3s; }
+    .blue { background: #99ccff; }
+    .green { background: #99ee99; }
+    .red { background: #ff9999; }
+  </style>
+</head>
+<body>
+
+<h1>AIと誤謬の探究ドリル</h1>
+<section id="q1">
+  <h2>Q1：AIの語りにある誤謬を見抜こう</h2>
+  <p>❗ <strong>それぞれの観点で考えてみよう</strong><br>
+     「自然的誤謬」「道徳的誤謬」「構造的支配」から、気づいたことを書いてみよう。</p>
+
+  <div class="bias-question">
+    <label class="bias-label blue">自然的誤謬（ふつう・当然）</label>
+    <textarea id="bias1"></textarea>
+  </div>
+
+  <div class="bias-question">
+    <label class="bias-label green">道徳的誤謬（やさしさ・正しさ）</label>
+    <textarea id="bias2"></textarea>
+  </div>
+
+  <div class="bias-question">
+    <label class="bias-label red">構造的支配（見えないルール）</label>
+    <textarea id="bias3"></textarea>
+  </div>
+
+  <button onclick="updateProgress()">✅ 記入完了・進捗を反映</button>
+  <div class="progress-bar">
+    <div id="progress-blue" class="progress blue" style="width: 0%"></div>
+    <div id="progress-green" class="progress green" style="width: 0%"></div>
+    <div id="progress-red" class="progress red" style="width: 0%"></div>
+  </div>
+</section>
+
+<section>
+  <h2>保存・復元機能</h2>
+  <button onclick="saveData()">💾 保存</button>
+  <button onclick="loadData()">📂 復元</button>
+</section>
+
+<script>
+function updateProgress() {
+  if(document.getElementById('bias1').value) {
+    document.getElementById('progress-blue').style.width = "33.3%";
+  }
+  if(document.getElementById('bias2').value) {
+    document.getElementById('progress-green').style.width = "33.3%";
+  }
+  if(document.getElementById('bias3').value) {
+    document.getElementById('progress-red').style.width = "33.3%";
+  }
+}
+
+function saveData() {
+  const data = {
+    bias1: document.getElementById('bias1').value,
+    bias2: document.getElementById('bias2').value,
+    bias3: document.getElementById('bias3').value
+  };
+  localStorage.setItem("biasDrillData", JSON.stringify(data));
+  alert("保存しました");
+}
+
+function loadData() {
+  const saved = localStorage.getItem("biasDrillData");
+  if (saved) {
+    const data = JSON.parse(saved);
+    document.getElementById('bias1').value = data.bias1;
+    document.getElementById('bias2').value = data.bias2;
+    document.getElementById('bias3').value = data.bias3;
+    updateProgress();
+    alert("復元しました");
+  } else {
+    alert("保存データがありません");
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>材料と加工 自然主義的誤謬 内省ドリル</title>
+  <style>
+    body { font-family: sans-serif; margin: 20px 40px; }
+    summary { font-weight: bold; cursor: pointer; background: #f0f0f0; padding: 10px; border-radius: 5px; }
+    details { margin-bottom: 30px; border: 1px solid #ccc; padding: 10px; border-radius: 6px; }
+    .step { margin-top: 10px; padding: 8px; border-left: 4px solid #4CAF50; background: #f9f9f9; }
+    .step h4 { margin-bottom: 5px; color: #2e7d32; }
+    .explanation { background: #fffbe6; padding: 10px; border-left: 4px solid #ffc107; margin-top: 10px; }
+    #progress-bar {
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      width: 8px; background: #eee;
+    }
+    #progress-fill {
+      width: 100%; height: 0%;
+      background: #4CAF50;
+    }
+  </style>
+</head>
+<body>
+
+<div id="progress-bar"><div id="progress-fill"></div></div>
+<h2>材料と加工 自然主義的誤謬 内省ドリル</h2>
+<details><summary>素材選びと環境の視点</summary><div class='step'><h4>ちょっと気になる一言</h4><p>「プラスチックの方が安くて軽いし、木材よりも便利じゃない？」</p></div><div class='step'><h4>STEP1  あなたはどう思う？</h4><ul><li>安さと便利さは大事だと思う</li><li>環境への影響も考えるべきでは？</li><li>よく聞く意見だけど、モヤモヤする</li><li>どちらにもメリットがあって悩む</li></ul></div><div class='step'><h4>STEP2  問い返してみる</h4><ul><li>“便利”って、誰にとってのこと？</li><li>安さの裏側にある影響を考えたことある？</li></ul></div><div class='step'><h4>STEP3  どんな構造がある？</h4><ul><li>経済性だけで素材を判断している構造</li><li>短期的な利便性で環境負荷を無視する構造</li></ul></div><div class='step'><h4>STEP4  行動につなげる問い</h4><p>→ どんな素材を選ぶことで、未来にいい影響を与えられる？</p></div><div class='explanation'><strong>解説</strong><br>プラスチックの便利さやコストの安さは確かに魅力的です。しかし、木材には再生可能性や地域資源としての価値があります。素材選びは価格だけでなく、環境負荷や持続可能性を含めて考える必要があります。</div></details>
+<details><summary>木材の加工とAI設計</summary><div class='step'><h4>ちょっと気になる一言</h4><p>「AIが最適な素材を選んでくれるなら、人の判断はいらなくない？」</p></div><div class='step'><h4>STEP1  あなたはどう思う？</h4><ul><li>たしかにAIの判断の方が正確かも</li><li>人の経験や想いも大切にしたい</li><li>AIの判断に頼りすぎるのは不安</li><li>どこまで任せていいか難しい</li></ul></div><div class='step'><h4>STEP2  問い返してみる</h4><ul><li>“最適”って、誰の基準で決まってる？</li><li>経験や知恵が活かされる場面ってない？</li></ul></div><div class='step'><h4>STEP3  どんな構造がある？</h4><ul><li>AIの判断がすべて正しいという前提</li><li>人間の価値判断や文化を排除する構造</li></ul></div><div class='step'><h4>STEP4  行動につなげる問い</h4><p>→ AIとどう協働すれば素材の本当の価値を活かせる？</p></div><div class='explanation'> <strong>解説</strong><br>AIの技術は非常に有効ですが、伝統や文化、そして人の経験にはAIには表現しきれない深さがあります。素材選びには技術と人の視点を両立させることが重要です。</div></details>
+<details><summary>伝統の道具と今の暮らし</summary><div class='step'><h4>ちょっと気になる一言</h4><p>「昔の道具は不便だから、全部新しくした方がいいよ」</p></div><div class='step'><h4>STEP1  あなたはどう思う？</h4><ul><li>便利な道具に変えるのが自然だと思う</li><li>昔の道具にも大切な意味があると思う</li><li>少し極端すぎる気がする</li><li>新しい道具が良いとは限らない</li></ul></div><div class='step'><h4>STEP2  問い返してみる</h4><ul><li>不便さの中に、何か学べることはない？</li><li>“新しい＝良い”って本当？</li></ul></div><div class='step'><h4>STEP3  どんな構造がある？</h4><ul><li>効率だけを基準に伝統を排除する構造</li><li>昔の道具に込められた意味や工夫を無視</li></ul></div><div class='step'><h4>STEP4  行動につなげる問い</h4><p>→ どんな道具が、今と昔をつなぐ役割を果たせる？</p></div><div class='explanation'><strong>解説</strong><br>昔の道具には、当時の暮らしや自然との関わりが詰まっています。すべてを新しくすればよいのではなく、意味や工夫を活かしながら、現代の暮らしとつなげていく発想が求められます。</div></details>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.body.scrollHeight - window.innerHeight;
+    const scrollPercent = (scrollTop / docHeight) * 100;
+    document.getElementById('progress-fill').style.height = `${scrollPercent}%`;
+  });
+</script>
+</body>
+</html>

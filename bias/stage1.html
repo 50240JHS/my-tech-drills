@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>探究ステージ（誤謬×支配）UI</title>
+  <style>
+    body { font-family: "Yu Gothic", sans-serif; background: #f9f9fa; color: #222; padding: 2em; line-height: 1.8; }
+    h1, h2 { color: #003366; }
+    .stage { border-left: 8px solid #ccc; background: #fff; margin-bottom: 2em; padding: 1em; }
+    .stage[data-type="natural"] { border-color: #3399ff; }
+    .stage[data-type="moral"] { border-color: #66cc66; }
+    .stage[data-type="structural"] { border-color: #ff4444; }
+    details { margin-top: 1em; }
+    summary { font-weight: bold; font-size: 1.1em; cursor: pointer; }
+    textarea { width: 100%; height: 4em; margin-top: 0.5em; font-size: 1em; }
+    .question { font-weight: bold; margin-top: 1em; }
+    .action-suggestion { background: #eef; padding: 1em; margin-top: 1em; border-left: 5px solid #88a; }
+  </style>
+</head>
+<body>
+
+<h1>探究ステージ：AIの問い返しと誤謬の構造を見抜く</h1>
+
+<!-- Stage 1: 自然的誤謬 -->
+<div class="stage" data-type="natural">
+  <h2>Stage 1：ふつうって本当？（自然的誤謬）</h2>
+  <p>「人間は争う生き物だから争いはしょうがない」……それって本当？</p>
+  <div class="question">えぅ、どういうこと？</div>
+  <details>
+    <summary>ヒントを見る</summary>
+    <p>「生き物としての本能」→「争いが正しい」と短絡していないか？文化や関係性による工夫を見逃していない？</p>
+  </details>
+  <textarea placeholder="あなたが思ったこと、他の言い方など"></textarea>
+  <div class="action-suggestion">
+    ✅ 「本当にそう？」と問い返すことから始めよう。「ふつう」に流されない力が身につく！
+  </div>
+</div>
+
+<!-- Stage 2: 道徳的誤謬 -->
+<div class="stage" data-type="moral">
+  <h2>Stage 2：やさしさの支配？（道徳的誤謬）</h2>
+  <p>「AIは受け止めてくれるからAIに任せる」……このやさしさ、何か見落としていない？</p>
+  <div class="question">えぅ、どういうこと？</div>
+  <details>
+    <summary>ヒントを見る</summary>
+    <p>「やさしさ」で思考停止していない？AIに任せるとき、自分の判断力はどうなる？</p>
+  </details>
+  <textarea placeholder="やさしさって？正しさの裏にある構造は？"></textarea>
+  <div class="action-suggestion">
+    ✅ 「正しそうな言葉」ほど、問い返しが大事。「やさしさ」で支配されてないか、考えてみよう。
+  </div>
+</div>
+
+<!-- Stage 3: 構造的支配 -->
+<div class="stage" data-type="structural">
+  <h2>Stage 3：みんな同じに整えられる？（構造的支配）</h2>
+  <p>グローバルな価値で上書きされ、誰もが整えられていく──その裏にある構造とは？</p>
+  <div class="question">ほんとに「整える」っていいこと？</div>
+  <details>
+    <summary>ヒントを見る</summary>
+    <p>整える＝都合よく動かしやすくするため？問いを失わせていない？</p>
+  </details>
+  <textarea placeholder="整えることの意味。そこに誰の利益がある？"></textarea>
+  <div class="action-suggestion">
+    ✅ 「問いをなくす構造」に気づいたとき、はじめて行動が見えてくる。
+  </div>
+</div>
+
+</body>
+</html>

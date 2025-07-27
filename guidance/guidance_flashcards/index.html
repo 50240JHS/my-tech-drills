@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ガイダンス領域 カード メニュー</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #fdfcf9;
+      padding: 2em;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      font-size: 1.8em;
+    }
+    .card-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2em;
+      max-width: 600px;
+      margin: 2em auto;
+    }
+    .card-item {
+      background: #ffffff;
+      border: 1px solid #ccc;
+      border-left: 6px solid #8ca;
+      padding: 1em;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+    .card-item:hover {
+      background: #f1f9f1;
+    }
+    .card-item a {
+      text-decoration: none;
+      color: #007088;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+    .desc {
+      font-size: 0.95em;
+      color: #555;
+      margin-top: 0.3em;
+    }
+  </style>
+</head>
+<body>
+  <h1>◯ ガイダンス領域 カード メニュー</h1>
+  <div class="card-list">
+    <div class="card-item">
+      <a href="guidance_flashcards/初歩フラッシュカード.html"> 初歩フラッシュカード（中1向け　導入・例から学ぶ）</a>
+      <div class="desc">身近な例やイメージから「技術の学び方」をつかむ</div>
+    </div>
+    <div class="card-item">
+      <a href="初歩フラッシュカード.html"> （基礎用語）</a>
+      <div class="desc">ガイダンス領域に関わる基本的な用語を整理</div>
+    </div>
+    <div class="card-item">
+      <a href="deep.html"> （問い・構造）</a>
+      <div class="desc">「なぜ？」「どうして？」の深い問いから構造を探る</div>
+    </div>
+    <div class="card-item">
+      <a href="explore.html"> （設計・応用）</a>
+      <div class="desc">学んだ知識を活かし、しくみを設計・応用する視点</div>
+    </div>
+    <div class="card-item">
+      <a href="philo.html"> （深い問い）</a>
+      <div class="desc">「本当にそれでよいのか？」を考える問いを通して技術の本質へ</div>
+    </div>
+    <div class="card-item">
+      <a href="map.html">（全体の俯瞰・ふりかえり）</a>
+      <div class="desc">学びを俯瞰し（ふかんし・みわたし）、道具・間柄・最適化の全体像をふりかえる</div>
+    </div>
+  </div>
+</body>
+</html>

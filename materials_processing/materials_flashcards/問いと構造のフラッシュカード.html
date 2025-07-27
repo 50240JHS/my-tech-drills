@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>材料と加工  問い・構造カード</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 40px;
+      background-color: #fafafa;
+      text-align: center;
+    }
+    .card {
+      border: 2px solid #6c757d;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 700px;
+      background-color: #ffffff;
+      text-align: left;
+    }
+    #progress-bar {
+      width: 100%;
+      background: #e0e0e0;
+      border-radius: 5px;
+      overflow: hidden;
+      margin: 20px 0;
+    }
+    #progress-bar-inner {
+      height: 20px;
+      background: #6c757d;
+      width: 0%;
+      color: #fff;
+      text-align: center;
+    }
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+    }
+    #controls {
+      margin: 20px;
+    }
+    label {
+      margin: 0 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>◯ 材料と加工  問い・構造カード</h1>
+
+  <div id="progress-bar">
+    <div id="progress-bar-inner">0%</div>
+  </div>
+
+  <div class="card" id="card">
+    <h2 id="question"></h2>
+    <p id="context"></p>
+    <div id="controls">
+      <label>スピード:
+        <select id="speed">
+          <option value="1">1.0x</option>
+          <option value="1.5">1.5x</option>
+          <option value="2">2.0x</option>
+        </select>
+      </label>
+      <label>
+        <input type="checkbox" id="autoPlay"> オート再生
+      </label>
+    </div>
+    <button onclick="speak()">🔊 読み上げ</button>
+    <button onclick="nextCard()">➡ 次へ</button>
+  </div>
+
+  <script>
+    const cards = [
+      {
+        question: "なぜ材料ごとに特性がちがうの？",
+        context: "自然にできたもの（木・石）と、人が作ったもの（鉄・プラスチック）では成り立ちがちがうからです。材料の中の粒や構造が異なることで、強さやかたさ、曲げやすさが変わってきます。",
+        speak: "なぜ、ざいりょうごとに、とくせいがちがうの？しぜんにできたものと、ひとがつくったものでは、なりたちがちがうからです。ざいりょうのなかのつぶやこうぞうがことなり、つよさやかたさ、まげやすさがかわってきます。"
+      },
+      {
+        question: "加工しやすい材料ってどんなもの？",
+        context: "やわらかくて、軽くて、切ったり削ったりしやすい材料です。たとえば、木材は工具で加工しやすく、学校でも使いやすいです。",
+        speak: "かこうしやすいざいりょうってどんなもの？やわらかくて、かるくて、きったりけずったりしやすいざいりょうです。たとえば、もくざいはこうぐでかこうしやすく、がっこうでもつかいやすいです。"
+      },
+      {
+        question: "身の回りに使われている材料はどう選ばれている？",
+        context: "使う目的にあわせて「強さ」「軽さ」「見た目」「コスト」などを考えて選ばれています。たとえば、橋には鉄、椅子には木やプラスチックなど。",
+        speak: "みのまわりにつかわれているざいりょうはどうえらばれている？つかうもくてきにあわせて、つよさ、かるさ、みため、こすと、などをかんがえてえらばれています。たとえば、はしにはてつ、いすにはきやぷらすちっくなど。"
+      },
+      {
+        question: "なぜ同じ素材でも使い方が違うの？",
+        context: "形や厚さを変えたり、組み合わせたりすることで、ちがう使い方ができます。アルミニウムは缶にも使われ、飛行機にも使われます。",
+        speak: "なぜ、おなじそざいでも、つかいかたがちがうの？かたちやあつさをかえたり、くみあわせたりすることで、ちがうつかいかたができます。あるみにうむは、かんにもつかわれ、ひこうきにもつかわれます。"
+      }
+    ];
+
+    let current = 0;
+
+    function updateProgress() {
+      const percent = Math.round(((current + 1) / cards.length) * 100);
+      document.getElementById("progress-bar-inner").style.width = percent + "%";
+      document.getElementById("progress-bar-inner").textContent = `${current + 1} / ${cards.length} (${percent}%)`;
+    }
+
+    function showCard() {
+      const c = cards[current];
+      document.getElementById("question").textContent = c.question;
+      document.getElementById("context").textContent = c.context;
+      updateProgress();
+    }
+
+    function speak() {
+      speechSynthesis.cancel();
+      const c = cards[current];
+      const utter = new SpeechSynthesisUtterance(`${c.question}。${c.speak}`);
+      utter.lang = 'ja-JP';
+      utter.rate = parseFloat(document.getElementById("speed").value);
+      utter.onend = function () {
+        if (document.getElementById("autoPlay").checked) {
+          nextCard();
+        }
+      };
+      speechSynthesis.speak(utter);
+    }
+
+    function nextCard() {
+      speechSynthesis.cancel();
+      current = (current + 1) % cards.length;
+      showCard();
+      if (document.getElementById("autoPlay").checked) {
+        speak();
+      }
+    }
+
+    showCard();
+  </script>
+
+  <footer>
+    <p>&copy; 2025 my-tech-drills Project</p>
+  </footer>
+</body>
+</html>

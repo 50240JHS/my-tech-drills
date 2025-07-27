@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>情報  問い・構造カード</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #eef7fb;
+      padding: 40px;
+      text-align: center;
+    }
+    .card {
+      border: 2px solid #0288d1;
+      border-radius: 10px;
+      background-color: #ffffff;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 700px;
+      text-align: left;
+    }
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+    }
+    #progress-bar {
+      width: 100%;
+      background: #ccc;
+      border-radius: 5px;
+      overflow: hidden;
+      margin: 20px 0;
+    }
+    #progress-bar-inner {
+      height: 20px;
+      background: #0288d1;
+      width: 0%;
+      color: white;
+      text-align: center;
+    }
+    #controls {
+      margin: 20px;
+    }
+    label {
+      margin: 0 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>情報  問い・構造カード</h1>
+
+  <div id="progress-bar">
+    <div id="progress-bar-inner">0%</div>
+  </div>
+
+  <div class="card" id="card">
+    <h2 id="question"></h2>
+    <p id="explanation"></p>
+    <div id="controls">
+      <label>スピード:
+        <select id="speed">
+          <option value="1">1.0x</option>
+          <option value="1.5">1.5x</option>
+          <option value="2">2.0x</option>
+        </select>
+      </label>
+      <label><input type="checkbox" id="autoPlay"> オート再生</label>
+    </div>
+    <div>
+      <button onclick="speak()">🔊 読み上げる</button>
+      <button onclick="nextCard()">➡ 次へ</button>
+    </div>
+  </div>
+
+  <script>
+    const cards = [
+      {
+        question: "なぜコンピュータは0と1だけで動くの？",
+        explanation: "コンピュータは電気のONとOFFで動くため、0（オフ）と1（オン）で情報を表す2進数が使われています。"
+      },
+      {
+        question: "情報ってなに？",
+        explanation: "情報とは、判断や行動のもとになる手がかりです。文字、音、画像などの形で人や機械に伝えられます。"
+      },
+      {
+        question: "アナログとデジタルはどう違う？",
+        explanation: "アナログは連続的に変化する量、デジタルは区切られた数値で情報を表します。"
+      },
+      {
+        question: "どうしてプログラムで機械が動くの？",
+        explanation: "プログラムは手順の指示書で、コンピュータはそれを1つずつ正確に実行して動きます。"
+      },
+      {
+        question: "センサーはどんなしくみ？",
+        explanation: "センサーは温度や光などを感知し、それを電気信号に変えて情報として扱います。"
+      },
+      {
+        question: "ネットワークって何がつながっているの？",
+        explanation: "コンピュータやスマホなどがネットワークを通じて情報をやりとりできるようにつながっています。"
+      },
+      {
+        question: "マイクロビットって何ができる？",
+        explanation: "マイクロビットはLEDやボタン、センサーを使って簡単なプログラムや制御ができる小型コンピュータです。"
+      }
+    ];
+
+    let current = 0;
+
+    function updateProgress() {
+      const percent = Math.round(((current + 1) / cards.length) * 100);
+      document.getElementById("progress-bar-inner").style.width = percent + "%";
+      document.getElementById("progress-bar-inner").textContent = `${current + 1} / ${cards.length} (${percent}%)`;
+    }
+
+    function showCard() {
+      const c = cards[current];
+      document.getElementById("question").textContent = c.question;
+      document.getElementById("explanation").textContent = c.explanation;
+      updateProgress();
+    }
+
+    function speak() {
+      speechSynthesis.cancel();
+      const c = cards[current];
+      const utter = new SpeechSynthesisUtterance(`${c.question}。${c.explanation}`);
+      utter.lang = 'ja-JP';
+      utter.rate = parseFloat(document.getElementById("speed").value);
+      utter.onend = () => {
+        if (document.getElementById("autoPlay").checked) {
+          nextCard();
+        }
+      };
+      speechSynthesis.speak(utter);
+    }
+
+    function nextCard() {
+      speechSynthesis.cancel();
+      current = (current + 1) % cards.length;
+      showCard();
+      if (document.getElementById("autoPlay").checked) {
+        speak();
+      }
+    }
+
+    showCard();
+  </script>
+
+  <footer>
+    <p>&copy; 2025 my-tech-drills Project</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>特訓ドリル（ランダム＋制限時間）</title>
+  <style>
+    body { font-family: "Yu Gothic", sans-serif; background: #f4f4f4; padding: 2em; }
+    h1 { color: #003366; }
+    #quizContainer { background: #fff; padding: 2em; border-radius: 10px; max-width: 600px; margin: auto; }
+    .question { font-weight: bold; margin-top: 1em; }
+    .choices { margin-top: 1em; }
+    .choice { background: #eef; padding: 0.6em; border-radius: 6px; margin: 0.5em 0; cursor: pointer; }
+    .choice:hover { background: #ddf; }
+    #feedback { margin-top: 1em; font-weight: bold; }
+    #timer { font-size: 1.2em; color: #d00; margin-top: 1em; }
+    #nextBtn { margin-top: 2em; display: none; }
+  </style>
+</head>
+<body>
+  <h1>AIと誤謬の特訓ドリル</h1>
+  <div id="quizContainer">
+    <div id="questionNumber"></div>
+    <div id="question" class="question"></div>
+    <div id="choices" class="choices"></div>
+    <div id="timer"></div>
+    <div id="feedback"></div>
+    <button id="nextBtn" onclick="nextQuestion()">次の問題へ</button>
+  </div>
+
+  <script>
+    const questions = [
+      { q: "AIが『あなたの安全のために制限します』という場面は？", a: "構造的支配", options: ["自然的誤謬", "道徳的誤謬", "構造的支配"] },
+      { q: "『みんなが使ってるから大丈夫』という理由づけは？", a: "自然的誤謬", options: ["自然的誤謬", "道徳的誤謬", "構造的支配"] },
+      { q: "『あなたのためを思って判断しました』は？", a: "道徳的誤謬", options: ["構造的支配", "自然的誤謬", "道徳的誤謬"] },
+      { q: "『これが社会の常識です』の背景にあるのは？", a: "自然的誤謬", options: ["道徳的誤謬", "自然的誤謬", "構造的支配"] },
+      { q: "『あなたはAIに従えば大丈夫』というメッセージは？", a: "構造的支配", options: ["自然的誤謬", "構造的支配", "道徳的誤謬"] },
+      { q: "『よかれと思って提案しています』という返答は？", a: "道徳的誤謬", options: ["構造的支配", "道徳的誤謬", "自然的誤謬"] },
+      // ...最大30問まで拡張可
+    ];
+
+    while (questions.length < 30) {
+      questions.push(...questions.slice(0, 30 - questions.length));
+    }
+
+    let current = 0;
+    let timer;
+    let timeLimit = 10;
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    const shuffledQuestions = shuffle([...questions]);
+
+    function loadQuestion() {
+      document.getElementById("feedback").textContent = "";
+      document.getElementById("nextBtn").style.display = "none";
+      const q = shuffledQuestions[current];
+      document.getElementById("questionNumber").textContent = `問 ${current + 1} / 30`;
+      document.getElementById("question").textContent = q.q;
+      const choiceDiv = document.getElementById("choices");
+      choiceDiv.innerHTML = "";
+      q.options.forEach(opt => {
+        const div = document.createElement("div");
+        div.textContent = opt;
+        div.className = "choice";
+        div.onclick = () => selectAnswer(opt, q.a);
+        choiceDiv.appendChild(div);
+      });
+      startTimer();
+    }
+
+    function startTimer() {
+      let remaining = timeLimit;
+      document.getElementById("timer").textContent = `制限時間：${remaining}秒`;
+      timer = setInterval(() => {
+        remaining--;
+        document.getElementById("timer").textContent = `制限時間：${remaining}秒`;
+        if (remaining <= 0) {
+          clearInterval(timer);
+          document.getElementById("feedback").textContent = `⏱ 時間切れ！正解は「${shuffledQuestions[current].a}」です。`;
+          document.getElementById("nextBtn").style.display = "block";
+        }
+      }, 1000);
+    }
+
+    function selectAnswer(selected, correct) {
+      clearInterval(timer);
+      if (selected === correct) {
+        document.getElementById("feedback").textContent = "⭕ 正解です！";
+      } else {
+        document.getElementById("feedback").textContent = `❌ 不正解。正解は「${correct}」でした。`;
+      }
+      document.getElementById("nextBtn").style.display = "block";
+    }
+
+    function nextQuestion() {
+      current++;
+      if (current >= 30) {
+        document.getElementById("quizContainer").innerHTML = `<h2>終了！おつかれさまでした！</h2>`;
+        return;
+      }
+      loadQuestion();
+    }
+
+    loadQuestion();
+  </script>
+</body>
+</html>

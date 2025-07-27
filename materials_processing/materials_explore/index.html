@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>【生物育成に関する技術】 育てるしくみ探究ドリル</title>
+  <link rel="stylesheet" href="../common/style.css">
+  <script src="../common/common_ui.js" defer></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: linear-gradient(135deg, #e8f5e9, #ffffff);
+    }
+    header, footer {
+      text-align: center;
+    }
+    h1::before {
+      content: " ";
+      display: inline-block;
+      background: radial-gradient(circle at 30% 30%, #a5d6a7, #e8f5e9);
+      border-radius: 50%;
+      width: 1.2em;
+      height: 1.2em;
+      margin-right: 0.5em;
+      vertical-align: middle;
+      border: 2px solid #43a047;
+      box-shadow: 0 0 8px rgba(76, 175, 80, 0.6), inset 2px -2px 5px rgba(255, 255, 255, 0.9);
+    }
+    section {
+      margin-bottom: 2rem;
+    }
+    button {
+      margin: 0.5rem 0;
+      background: #a5d6a7;
+      border: 1px solid #43a047;
+      color: #1b5e20;
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+    }
+    button:hover {
+      background: #81c784;
+    }
+    nav {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    nav button {
+      margin: 0.5rem;
+    }
+    .stage-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    h2 {
+      color: #1b5e20;
+      border-bottom: 2px solid #43a047;
+      padding-bottom: 0.3rem;
+      margin-bottom: 0.5rem;
+    }
+    ul li::before {
+      content: "";
+    }
+    .steam-view {
+      border: 2px solid #43a047;
+      background: #e8f5e9;
+      padding: 1rem;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .steam-view.hidden {
+      display: none;
+    }
+    footer {
+      border-top: 1px solid #ccc;
+      padding-top: 1rem;
+      margin-top: 2rem;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>【生物育成に関する技術】 育てるしくみ探究ドリル</h1>
+    <p>現在のステージ  <span id="currentLayer">---</span></p>
+    <p>達成済みステージ  <span id="completedLayers">---</span></p>
+  </header>
+
+  <nav>
+    <button onclick="navigateTo('intro')">はじまりへ</button>
+    <button onclick="navigateTo('reflection')">振り返りへ</button>
+    <button onclick="toggleSteamView()">STEAM表示切替</button>
+    <button onclick="openFlashcard('bio_cultivation')">生物育成フラッシュカード</button>
+    <button onclick="progress.exportCSV()">進捗CSV出力</button>
+  </nav>
+
+  <section id="intro">
+    <div class="stage-header">
+      <h2>導入ステージ  生き物を育てるって？</h2>
+      <button onclick="progress.updateLayer('導入ステージ')">このステージを達成</button>
+    </div>
+    <p>植物や生き物にとって、どんな環境が大切かを考えてみよう。</p>
+  </section>
+
+  <section id="inquiry">
+    <div class="stage-header">
+      <h2>探求ステージ　育成に必要な条件を調べる</h2>
+      <button onclick="progress.updateLayer('探求ステージ')">このステージを達成</button>
+    </div>
+    <p>光・水・温度・土など、どんな条件が生き物の育成に必要か調べてみよう。</p>
+    <ul>
+      <li>育てる環境の違いで生き物はどう変わる？</li>
+      <li>育成記録をどう残す？</li>
+      <li>育てる工夫はどんなものがある？</li>
+    </ul>
+  </section>
+
+  <section id="pursuit">
+    <div class="stage-header">
+      <h2>追究ステージ　育成環境を工夫しよう</h2>
+      <button onclick="progress.updateLayer('追究ステージ')">このステージを達成</button>
+    </div>
+    <p>育成環境を変えて実験し、どんな変化があるかを観察してみよう。</p>
+    <ul>
+      <li>環境を変えると生育にどんな影響が？</li>
+      <li>育て方に合わせた環境調整の工夫は？</li>
+      <li>地域の特徴を活かした育て方とは？</li>
+    </ul>
+  </section>
+
+  <section id="refinement">
+    <div class="stage-header">
+      <h2>研鑽（けんさん）ステージ　育成と地域・未来のつながり</h2>
+      <button onclick="progress.updateLayer('研鑽ステージ')">このステージを達成</button>
+    </div>
+    <p>育成技術を通じて、地域や未来の課題にどうつなげるか考えてみよう。</p>
+    <ul>
+      <li>地域資源としての生き物の活用は？</li>
+      <li>持続的に育てるための工夫は？</li>
+      <li>未来につながる育成のしくみは？</li>
+    </ul>
+  </section>
+
+  <section id="reflection">
+    <div class="stage-header">
+      <h2>振り返りステージ　気づきと次の問い</h2>
+      <button onclick="progress.updateLayer('振り返りステージ')">このステージを達成</button>
+    </div>
+    <p>学んだことを整理し、次の探究に向けてまとめよう。</p>
+    <ul>
+      <li>新しく気づいたことは？</li>
+      <li>次にどんな探究をしてみたい？</li>
+      <li>他の育成技術とどうつなげられる？</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="steam-view">
+      <div>
+        <p>S  生き物の特性や育成の科学</p>
+        <p>T  育成に使う道具・技術</p>
+        <p>E  環境設計や育成条件の工学</p>
+        <p>A  育成記録や成果物の表現</p>
+        <p>M  成長記録・データ管理</p>
+      </div>
+      <button onclick="toggleSteamView()">表示切替</button>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 my-tech-drills Project</p>
+  </footer>
+</body>
+</html>

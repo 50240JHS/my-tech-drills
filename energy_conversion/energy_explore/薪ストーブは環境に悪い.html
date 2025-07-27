@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>火と木と暮らしのまなざしドリル（自然主義的誤謬）</title>
+  <style>
+    body { font-family: sans-serif; line-height: 1.6; background: #fdfdfd; padding: 20px; }
+    h2 { background: #ffd7b5; padding: 10px; border-left: 6px solid #e65100; }
+    .step { margin: 20px 0; padding: 10px; border: 1px solid #ccc; background: #fff; }
+    .option { padding: 6px; margin: 4px 0; border: 1px solid #aaa; cursor: pointer; background: #fef4e8; }
+    .option:hover { background: #ffe0c2; }
+    .feedback, .analysis, .final { display: none; margin-top: 10px; padding: 10px; background: #f0f0f0; border-left: 4px solid #999; }
+  </style>
+  <script>
+    function showFeedback(stepId, num) {
+      const feedbacks = document.querySelectorAll(`#${stepId} .feedback`);
+      feedbacks.forEach(el => el.style.display = 'none');
+      const chosen = document.getElementById(`${stepId}_fb${num}`);
+      if (chosen) chosen.style.display = 'block';
+    }
+
+    function showAnalysis(stepId) {
+      const analysis = document.querySelector(`#${stepId} .analysis`);
+      if (analysis) analysis.style.display = 'block';
+    }
+
+    function showFinal(stepId) {
+      const final = document.querySelector(`#${stepId} .final`);
+      if (final) final.style.display = 'block';
+    }
+  </script>
+</head>
+<body>
+
+<h1>火と木と暮らしのまなざし  自然主義的誤謬ドリル</h1>
+<p><strong>― 木材は材料か？燃料か？ それとも間柄の記憶か ―</strong></p>
+
+<!-- 問題-->
+<div class="step" id="q001125422">
+  <h2>薪ストーブの家は、環境に悪い？</h2>
+  <p><strong>ある子の発言</strong>「えっ、木燃やすのってエコじゃないよね？電気の方がクリーンだし」</p>
+
+  <h3>STEP1  あなたはどう思う？</h3>
+  <div class="option" onclick="showFeedback('q001125422', 1)">A. 燃やすのは煙が出て自然に悪いから、やめるべき</div>
+  <div class="option" onclick="showFeedback('q001125422', 2)">B. 火は原始的すぎるから、今はスマートじゃない</div>
+  <div class="option" onclick="showFeedback('q001125422', 3)">C. 木を育て、使ってまた植える循環なら、暮らしと自然の協調になる</div>
+  <div class="option" onclick="showFeedback('q001125422', 4)">D. 薪は高いから、ガスや電気の方が正しい</div>
+
+  <div class="feedback" id="q001125422_fb1">→ 「煙＝悪」という単純化には注意が必要。使い方と循環が重要です。</div>
+  <div class="feedback" id="q001125422_fb2">→ 技術の新旧だけで善悪を判断するのは誤謬的です。</div>
+  <div class="feedback" id="q001125422_fb3">→ その通り。地域資源と暮らしが連動する仕組みが問われています。</div>
+  <div class="feedback" id="q001125422_fb4">→ 経済的視点だけで判断する前に、全体のしくみを見てみましょう。</div>
+
+  <h3 onclick="showAnalysis('q001125422')" style="cursor:pointer;">STEP2  問い返してみる ▼</h3>
+  <div class="analysis">
+    <ul>
+      <li>電気は本当にクリーン？どう作られてる？</li>
+      <li>薪を使う仕組みの中に「育てる・使う・戻す」循環があるか？</li>
+    </ul>
+    <h4>STEP3  どんな構造がある？</h4>
+    <ul>
+      <li>「電気＝清潔、火＝汚い」というイメージ先行の評価</li>
+      <li>暮らしと自然の距離を遠ざける選択になっていないか？</li>
+    </ul>
+    <h4>STEP4  行動につなげる問い</h4>
+    <p>身近なエネルギーの使い方、見直したい点はある？</p>
+    <button onclick="showFinal('q001125422')">📝 解説を見る</button>
+  </div>
+  <div class="final">
+    <p><strong>解説</strong><br>
+    「木を燃やす＝自然破壊」と決めつけるのは自然主義的誤謬です。育て、使い、また植える循環がある場合、薪ストーブは地域の資源と自然との調和を促す選択肢となり得ます。「火のある暮らし」が未来的技術と共存する道もあるのです。
+    </p>
+  </div>
+</div>
+
+</body>
+</html>

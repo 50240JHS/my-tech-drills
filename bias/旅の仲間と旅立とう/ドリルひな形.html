@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Stage 1  旅の仲間と旅立とう</title>
+  <link rel="stylesheet" href="../common/style.css">
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 2rem;
+      line-height: 1.8;
+      background-color: #fdfdfd;
+    }
+    h1, h2 {
+      color: #2a2a2a;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 0.4rem;
+    }
+    .highlight-box {
+      background-color: #fff6cc;
+      border: 2px solid #e6c200;
+      padding: 1rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin: 1rem 0;
+    }
+    .hint-section {
+      margin: 1.5rem 0;
+    }
+    .hint-section summary {
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1.1rem;
+      color: #333;
+    }
+    .question {
+      margin: 1.5rem 0;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      background: #f9f9f9;
+    }
+    .question h3 {
+      margin-top: 0;
+    }
+    .question button {
+      margin: 0.4rem 0;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 4px;
+      background-color: #4caf50;
+      color: white;
+      cursor: pointer;
+    }
+    .question button:hover {
+      background-color: #388e3c;
+    }
+    .feedback {
+      margin-top: 0.6rem;
+      padding: 0.6rem;
+      background-color: #eef;
+      border-left: 4px solid #339;
+    }
+    .self-check {
+      border: 1px solid #aaa;
+      padding: 1rem;
+      margin: 2rem 0;
+      background-color: #f5f5f5;
+    }
+    .self-check label {
+      display: block;
+      margin: 0.4rem 0;
+    }
+    .message-box {
+      margin-top: 1rem;
+      padding: 1rem;
+      border: 2px dashed #999;
+      background-color: #ffffe0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Stage 1  旅の仲間と旅立とう</h1>
+
+  <section>
+    <h2>登場人物紹介</h2>
+    <ul>
+      <li><strong>ユウタ</strong>ちょっと疑問に思ったことをすぐに口に出す中学生。</li>
+      <li><strong>サクラ</strong>おだやかで、ものごとをじっくり考えるタイプの友だち。</li>
+    </ul>
+  </section>
+
+  <section class="highlight-box">
+    「人間は争う生き物だ（事実）」→「だから争うことは当然でよい（価値判断）」
+    <br>── この考え方には、大きなまちがいがかくれているかもしれません。
+  </section>
+
+  <section class="hint-section">
+    <details>
+      <summary>はじめの気配を感じてみよう</summary>
+      <p>
+        ユウタ  「ニュースで見たけど、また国どうしが争ってるんだって。<br>
+        人間って争う生き物だよね。しかたないよね」<br><br>
+        サクラ  「うーん……たしかに歴史を見ると争いが多いけど、それって本当に"しかたない"のかな？」<br><br>
+        ユウタ  「え？でも昔からずっと戦争とかあるじゃん」<br><br>
+        サクラ  「それは"事実"かもしれない。でも、それが"良いこと"ってわけじゃないよね」
+      </p>
+    </details>
+  </section>
+
+  <section class="hint-section">
+    <details>
+      <summary>考えはじめた芽に耳をすませよう</summary>
+      <p>
+        サクラ  「たとえば、じゃんけんで負けて怒る人がいたらどう思う？」<br>
+        ユウタ  「えっ、それは怒ってもしょうがないじゃん」<br>
+        サクラ  「そうだよね。つまり、"負けた"という事実と、"怒っていい"という判断は別ってことだよ」<br><br>
+        ユウタ  「なるほど。争ってきた事実と、争っていいって判断をいっしょにしちゃいけないんだ」
+      </p>
+    </details>
+  </section>
+
+  <section class="question">
+    <h3>問い①  なぜ「争ってきた事実」が「争ってもよい理由」にはならないの？</h3>
+    <button onclick="showFeedback(this, false)">争いの歴史があるなら、今も争って当然だから</button><br>
+    <button onclick="showFeedback(this, true)">事実と価値判断は別なので、良いかどうかは別に考える必要があるから</button>
+    <div class="feedback" style="display:none;"></div>
+  </section>
+
+  <section class="question">
+    <h3>問い②  「人間は争う生き物」と言われたとき、どんなふうに受けとめるとよい？</h3>
+    <button onclick="showFeedback(this, true)">それが本当なら、どうすれば争わずにすむかを考えたくなる</button><br>
+    <button onclick="showFeedback(this, false)">生き物だから争うのは当然、そういう人とはかかわらない</button>
+    <div class="feedback" style="display:none;"></div>
+  </section>
+
+  <section class="self-check">
+    <h3>🪞 立ち止まって 自分に聞いてみよう</h3>
+    <label><input type="radio" name="reflection" onclick="showMessage('◎ よく気づけました。次も問いを止めずに進もう。')"> ◎：よく理解できた</label>
+    <label><input type="radio" name="reflection" onclick="showMessage('△ だいじょうぶ。わからないところはヒントを読み直してみよう')"> △：少し不安</label>
+    <label><input type="radio" name="reflection" onclick="showMessage('◯ もう一度、物語をゆっくり読んでみよう')"> ◯：まだよくわからない</label>
+    <div class="message-box" id="reflection-message"></div>
+  </section>
+
+  <div style="text-align: center; margin-top: 2rem;">
+    <label><input type="checkbox"> ✅ このステージを達成にする</label>
+  </div>
+
+  <script>
+    function showFeedback(button, isCorrect) {
+      const div = button.parentNode.querySelector(".feedback");
+      div.style.display = "block";
+      if (isCorrect) {
+        div.innerHTML = "✅ 正解です。事実をもとにしても、何が正しいかは別に考える必要があります。";
+      } else {
+        div.innerHTML = "❌ ちがいます。「事実がある＝正しい」というわけではありません。歴史や現実をもとに、これからの判断を丁寧に考えましょう。";
+      }
+    }
+
+    function showMessage(msg) {
+      document.getElementById("reflection-message").innerText = msg;
+    }
+  </script>
+</body>
+</html>

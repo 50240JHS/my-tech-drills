@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>情報  基礎確認フラッシュカード</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 40px;
+      background-color: #eef7fb;
+      text-align: center;
+    }
+    .card {
+      border: 2px solid #1565c0;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 600px;
+      background-color: #ffffff;
+      text-align: left;
+    }
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+    }
+    #progress-bar {
+      width: 100%;
+      background: #ddd;
+      border-radius: 5px;
+      overflow: hidden;
+      margin: 20px 0;
+    }
+    #progress-bar-inner {
+      height: 20px;
+      background: #1976d2;
+      width: 0%;
+      text-align: center;
+      color: #fff;
+    }
+    #controls {
+      margin: 20px;
+    }
+    label {
+      margin: 0 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>情報  基礎確認フラッシュカード</h1>
+
+  <div id="progress-bar">
+    <div id="progress-bar-inner">0%</div>
+  </div>
+
+  <div class="card" id="card">
+    <h2 id="term"></h2>
+    <p id="text1"></p>
+    <p id="text2"></p>
+    <p id="text3"></p>
+    <p id="text4"></p>
+    <p id="text5"></p>
+    <div id="controls">
+      <label>スピード:
+        <select id="speed">
+          <option value="1">1.0x</option>
+          <option value="1.5">1.5x</option>
+          <option value="2">2.0x</option>
+        </select>
+      </label>
+      <label><input type="checkbox" id="autoPlay"> オート再生</label>
+    </div>
+    <div>
+      <button onclick="speak()">🔊 読み上げる</button>
+      <button onclick="nextCard()">➡ 次へ</button>
+    </div>
+  </div>
+
+  <script>
+    const cards = [
+      {
+        term: "情報とは",
+        texts: [
+          "情報とは、物ごとを判断するための手がかりです。",
+          "目で見たもの、耳で聞いたこと、インターネットで調べた内容なども情報です。",
+          "情報には正しいものと間違ったものがあるため、見分ける力が必要です。"
+        ],
+        readText: [
+          "情報とは、物ごとを判断するための手がかりです。",
+          "目で見たもの、耳で聞いたこと、インターネットで調べた内容なども情報です。",
+          "情報には正しいものと間違ったものがあるため、見分ける力が必要です。"
+        ]
+      },
+      {
+        term: "アナログとデジタル",
+        texts: [
+          "アナログは連続的に変化する情報で、デジタルは数字に置き換えた情報です。",
+          "温度計の針はアナログ、数字で表示される温度はデジタルです。"
+        ],
+        readText: [
+          "アナログは連続的に変化する情報で、デジタルは数字に置き換えた情報です。",
+          "温度計の針はアナログ、数字で表示される温度はデジタルです。"
+        ]
+      },
+      {
+        term: "2進数",
+        texts: [
+          "2進数は0と1だけで表される数字です。",
+          "コンピュータの中ではすべての情報が2進数で表現されます。",
+          "スイッチのオン・オフと似た仕組みです。"
+        ],
+        readText: [
+          "2進数は0と1だけで表される数字です。",
+          "コンピュータの中ではすべての情報が2進数で表現されます。",
+          "スイッチのオン・オフと似た仕組みです。"
+        ]
+      },
+      {
+        term: "プログラムとは",
+        texts: [
+          "プログラムは、コンピュータにしてほしいことを順番に書いた命令の集まりです。",
+          "マイクロビットやScratchで作るものもプログラムの一種です。"
+        ],
+        readText: [
+          "プログラムは、コンピュータにしてほしいことを順番に書いた命令の集まりです。",
+          "マイクロビットやスクラッチで作るものもプログラムの一種です。"
+        ]
+      }
+    ];
+
+    let current = 0;
+
+    function updateProgress() {
+      const percent = Math.round(((current + 1) / cards.length) * 100);
+      document.getElementById("progress-bar-inner").style.width = percent + "%";
+      document.getElementById("progress-bar-inner").textContent = `${current + 1} / ${cards.length} (${percent}%)`;
+    }
+
+    function showCard() {
+      const c = cards[current];
+      document.getElementById("term").textContent = c.term;
+      document.getElementById("text1").textContent = c.texts[0] || "";
+      document.getElementById("text2").textContent = c.texts[1] || "";
+      document.getElementById("text3").textContent = c.texts[2] || "";
+      document.getElementById("text4").textContent = c.texts[3] || "";
+      document.getElementById("text5").textContent = c.texts[4] || "";
+      updateProgress();
+    }
+
+    function speak() {
+      speechSynthesis.cancel();
+      const c = cards[current];
+      const utter = new SpeechSynthesisUtterance(`${c.term}。${c.readText.join(" ")}`);
+      utter.lang = 'ja-JP';
+      utter.rate = parseFloat(document.getElementById("speed").value);
+      utter.onend = () => {
+        if (document.getElementById("autoPlay").checked) {
+          nextCard();
+        }
+      };
+      speechSynthesis.speak(utter);
+    }
+
+    function nextCard() {
+      speechSynthesis.cancel();
+      current = (current + 1) % cards.length;
+      showCard();
+      if (document.getElementById("autoPlay").checked) {
+        speak();
+      }
+    }
+
+    showCard();
+  </script>
+
+  <footer>
+    <p>&copy; 2025 my-tech-drills Project</p>
+  </footer>
+</body>
+</html>

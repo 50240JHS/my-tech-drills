@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ガイダンス基礎用語フラッシュカード</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 40px;
+      text-align: center;
+    }
+    .card {
+      border: 2px solid #333;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 600px;
+      text-align: left;
+    }
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+    }
+    #progress-bar {
+      width: 100%;
+      background: #eee;
+      border-radius: 5px;
+      overflow: hidden;
+      margin: 20px 20px;
+    }
+    #progress-bar-inner {
+      height: 20px;
+      background: #4CAF50;
+      width: 0%;
+      text-align: center;
+      color: #fff;
+    }
+    #controls {
+      margin: 20px;
+      text-align: center;
+    }
+    label {
+      margin: 0 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>ガイダンス基礎用語フラッシュカード</h1>
+
+  <div id="progress-bar">
+    <div id="progress-bar-inner">0%</div>
+  </div>
+
+  <div class="card" id="card">
+    <h2 id="term"></h2>
+    <p id="text1"></p>
+    <p id="text2"></p>
+    <p id="text3"></p>
+    <p id="text4"></p>
+    <p id="text5"></p>
+    <div id="controls">
+      <label>スピード:
+        <select id="speed">
+          <option value="1">1.0x</option>
+          <option value="1.5">1.5x</option>
+          <option value="2">2.0x</option>
+          <option value="2.5">2.5x</option>
+          <option value="3">3.0x</option>
+        </select>
+      </label>
+      <label>
+        <input type="checkbox" id="autoPlay"> オート再生
+      </label>
+    </div>
+    <div style="text-align: center;">
+      <button onclick="speak()">🔊 読み上げる</button>
+      <button onclick="nextCard()">➡ 次へ</button>
+    </div>
+  </div>
+
+  <script>
+    const units = [
+      {
+        term: "技術とは",
+        texts: [
+          "人と自然と人々の暮らしをつなぐ工夫や仕組みのこと。",
+          "科学だけでなく、倫理や間柄の工夫もふくむ。",
+          "生活の中で役立つ道具やしくみも技術のひとつ。",
+          "教科書や黒板、校舎や電気もすべて技術。"
+        ],
+        readText: [
+          "技術とは、人と自然と人々の暮らしをつなぐ工夫や仕組みのこと。",
+          "科学だけでなく、倫理や間柄の工夫もふくみます。",
+          "生活の中で役立つ道具やしくみも技術のひとつです。",
+          "教科書や黒板、校舎や電気もすべて技術です。"
+        ]
+      },
+      {
+        term: "倫理とは",
+        texts: [
+          "人々の暮らしをより良くするために守るルールや考え方。",
+          "地域や学校の中での約束ごとや配慮も含まれる。",
+          "科学の事実とは別に、人としてどうするべきかを考える。"
+        ],
+        readText: [
+          "倫理とは、人々の暮らしをより良くするために守るルールや考え方。",
+          "地域や学校の中での約束ごとや配慮も含まれます。",
+          "科学の事実とは別に、人としてどうするべきかを考えます。"
+        ]
+      }
+    ];
+
+    let current = 0;
+
+    function updateProgress() {
+      const percent = Math.round(((current + 1) / units.length) * 100);
+      document.getElementById("progress-bar-inner").style.width = percent + "%";
+      document.getElementById("progress-bar-inner").textContent = `${current + 1} / ${units.length} (${percent}%)`;
+    }
+
+    function showCard() {
+      const u = units[current];
+      document.getElementById("term").textContent = u.term;
+      document.getElementById("text1").textContent = u.texts[0] || "";
+      document.getElementById("text2").textContent = u.texts[1] || "";
+      document.getElementById("text3").textContent = u.texts[2] || "";
+      document.getElementById("text4").textContent = u.texts[3] || "";
+      document.getElementById("text5").textContent = u.texts[4] || "";
+      updateProgress();
+    }
+
+    function speak() {
+      speechSynthesis.cancel();
+      const u = units[current];
+      const utter = new SpeechSynthesisUtterance(
+        `${u.term}。${u.readText.join(" ")}`
+      );
+      utter.lang = 'ja-JP';
+      utter.rate = parseFloat(document.getElementById("speed").value);
+      utter.onend = function() {
+        if (document.getElementById("autoPlay").checked) {
+          nextCard();
+        }
+      };
+      speechSynthesis.speak(utter);
+    }
+
+    function nextCard() {
+      speechSynthesis.cancel();
+      if (current < units.length - 1) {
+        current++;
+      } else {
+        current = 0;
+      }
+      showCard();
+      if (document.getElementById("autoPlay").checked) {
+        speak();
+      }
+    }
+
+    showCard();
+  </script>
+  <footer>
+    <p>&copy; 2025 my-tech-drills Project</p>
+  </footer>
+</body>
+</html>
+

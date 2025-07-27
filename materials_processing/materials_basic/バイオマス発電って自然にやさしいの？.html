@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>火と木と暮らしのまなざし  バイオマス発電って自然にやさしいの？</title>
+  <style>
+    body { font-family: sans-serif; line-height: 1.6; background: #fdfdfd; padding: 20px; }
+    h2 { background: #fce4cc; padding: 10px; border-left: 6px solid #ff9800; }
+    .step { margin: 20px 0; padding: 10px; border: 1px solid #ccc; background: #fff; }
+    .option { padding: 6px; margin: 4px 0; border: 1px solid #aaa; cursor: pointer; background: #ffe; }
+    .option:hover { background: #ffffcc; }
+    .feedback, .analysis, .final { display: none; margin-top: 10px; padding: 10px; background: #f0f0f0; border-left: 4px solid #999; }
+  </style>
+  <script>
+    function showFeedback(stepId, num) {
+      const feedbacks = document.querySelectorAll(`#${stepId} .feedback`);
+      feedbacks.forEach(el => el.style.display = 'none');
+      const chosen = document.getElementById(`${stepId}_fb${num}`);
+      if (chosen) chosen.style.display = 'block';
+    }
+
+    function showAnalysis(stepId) {
+      const analysis = document.querySelector(`#${stepId} .analysis`);
+      if (analysis) analysis.style.display = 'block';
+    }
+
+    function showFinal(stepId) {
+      const final = document.querySelector(`#${stepId} .final`);
+      if (final) final.style.display = 'block';
+    }
+  </script>
+</head>
+<body>
+
+<h1>火と木と暮らしのまなざし</h1>
+<div class="step" id="q001125423">
+  <h2>バイオマス発電って自然にやさしいの？</h2>
+  <p><strong>ちょっと気になるひとこと</strong><br>「自然な材料を燃やすんだから、ぜったい自然にやさしい！」とある子が言いました。</p>
+
+  <h3>STEP1   あなたはどう思う？</h3>
+  <div class="option" onclick="showFeedback('q001125423', 1)">1. 燃やすこと自体が自然への攻撃なのでだめ</div>
+  <div class="option" onclick="showFeedback('q001125423', 2)">2. 自然の材料は全部エコなので問題ない</div>
+  <div class="option" onclick="showFeedback('q001125423', 3)">3. エネルギー効率や山の循環の観点も見ないと判断できない</div>
+  <div class="option" onclick="showFeedback('q001125423', 4)">4. 人工的に制御されたものはすべて自然に反する</div>
+
+  <div class="feedback" id="q001125423_fb1">→ 「燃やす＝悪」という単純化には注意が必要です。</div>
+  <div class="feedback" id="q001125423_fb2">→ 「自然なもの＝正義」という見方も一面的かもしれません。</div>
+  <div class="feedback" id="q001125423_fb3">→ 科学的な視点からの複合的判断が必要です。</div>
+  <div class="feedback" id="q001125423_fb4">→ 制御された技術の中にも自然との調和はありえます。</div>
+
+  <h3 onclick="showAnalysis('q001125423')" style="cursor:pointer;">STEP2  問い返してみる ▼</h3>
+  <div class="analysis">
+    <ul>
+      <li>・どんな基準で「自然にやさしい」と判断している？</li>
+      <li>・山の手入れや木の使い方まで見ている？</li>
+    </ul>
+    <h4>STEP3｜どんな構造がある？</h4>
+    <ul>
+      <li>・“自然素材＝善”という思い込み（自然主義的誤謬）</li>
+      <li>・技術や運用方法を無視した単純評価</li>
+    </ul>
+    <h4>STEP4｜行動につなげる問い</h4>
+    <p>→ 木を使ったエネルギー利用、どう考える？</p>
+    <button onclick="showFinal('q001125423')">📝 解説を見る</button>
+  </div>
+  <div class="final">
+    <p><strong>解説  </strong><br>自然素材を燃やせば無条件に環境にいいという考え方は誤謬です。バイオマス発電も、材料の持続性や輸送距離、効率などを含めて評価する必要があります。</p>
+  </div>
+</div>
+
+</body>
+</html>

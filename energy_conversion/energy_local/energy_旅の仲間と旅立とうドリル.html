@@ -1,0 +1,66 @@
+<main>
+  <!-- はじまりステージ -->
+  <details id="stage-intro">
+    <summary>◯ はじまりステージ   旅の仲間と旅立とう</summary>
+    <div class="stage-content">
+      <p>小さな水流を使ってDCモーターで発電してみよう。LEDが光ったら成功！</p>
+      <p>どんな場所で、どんな方法で、仲間と挑戦してみたい？</p>
+      <button onclick="progress.updateLayer('導入ステージ')">◎ このステージを達成</button>
+    </div>
+  </details>
+
+  <!-- 探求ステージ -->
+  <details id="stage-inquiry">
+    <summary>◯ 探求ステージ     発電量を調べる方法とは？</summary>
+    <div class="stage-content">
+      <p>発電量ってどうやって測るの？電圧、電流、回転数をマイクロビットで調べてみよう。</p>
+      <ul>
+       <li>オームの法則って、どう使えば役に立つの？</li>
+        <li>どのセンサーで測れる？</li>
+        <li>手の速さと電気の量に関係は？</li>
+        <li>測定データの整理方法は？</li>
+      </ul>
+      <button onclick="progress.updateLayer('探求ステージ')">◎ このステージを達成</button>
+    </div>
+  </details>
+
+  <!-- 追究ステージ -->
+  <details id="stage-pursuit">
+    <summary>◯ 追究ステージ    光を制御してみよう</summary>
+    <div class="stage-content">
+      <p>電気の量に応じてLEDの点灯をコントロール。自然と人との間柄を表現してみよう。</p>
+      <ul>
+        <li>どれくらいの電圧で光る？</li>
+        <li>光り方をどう工夫できる？</li>
+        <li>演出のアイデアは？</li>
+      </ul>
+      <button onclick="progress.updateLayer('追究ステージ')">◎ このステージを達成</button>
+    </div>
+  </details>
+
+  <!-- 研鑽ステージ -->
+  <details id="stage-refinement">
+    <summary>◯ 研鑽ステージ    発電と制御の新たな活用</summary>
+    <div class="stage-content">
+      <p>発電とLED制御を組み合わせ、エネルギーの物語をつくろう。地域・家族・災害時など使い道を深掘り。</p>
+      <ul>
+        <li>スマホ1台分の充電に何台必要？</li>
+        <li>配電盤やブレーカーの仕組みと似ている？</li>
+        <li>自然との「間柄」から立ち上がる科学とは？</li>
+      </ul>
+      <button onclick="progress.updateLayer('研鑽ステージ')">◎ このステージを達成</button>
+    </div>
+  </details>
+
+  <!-- 振り返りステージ -->
+  <details id="stage-reflection">
+    <summary>◯ 振り返りステージ    気づきとこれからの探究</summary>
+    <div class="stage-content">
+      <p>今回の学びで得たことを振り返り、次の探究へつなげよう。</p>
+      <textarea id="reflectionInput" placeholder="気づきや次の問いを書いてみよう"></textarea>
+      <br>
+      <button class="export-btn" onclick="exportReflectionCSV()">気づきをCSVに保存</button>
+      <button onclick="progress.updateLayer('振り返りステージ')">◎ このステージを達成</button>
+    </div>
+  </details>
+</main>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ステージ1  たこ足配線は本当にダメ？</title>
+  <link rel="stylesheet" href="../style.css">
+  <script src="../common.js"></script>
+</head>
+<body>
+  <main class="drill-stage">
+    <h1>◯ ステージ1  気づいていなかった電気の流れ</h1>
+
+    <section class="stage-intro">
+      <h2>登場人物</h2>
+      <ul>
+        <li><strong>ユウト</strong>家電好き。コードの整理が苦手。</li>
+        <li><strong>ミカ</strong>理科の授業で電流の話を聞いたばかり。</li>
+      </ul>
+    </section>
+
+    <section class="core-statement highlight">
+      <p><strong>「たこ足配線でも電気が通ってるんだから、問題ないでしょ？」</strong></p>
+      <p>→ 本当に？ そのまま受け入れていいの？</p>
+    </section>
+
+    <section class="question-block">
+      <h2>問い①  その言葉、どう感じた？</h2>
+      <p>「電気が流れてる＝安全」という思いこみになっていない？</p>
+      <form>
+        <label><input type="radio" name="q1" value="a"> たしかに、通ってるなら問題ないと思う</label><br>
+        <label><input type="radio" name="q1" value="b"> 流れていても危険なことがあるかもしれない</label><br>
+      </form>
+      <div class="feedback" id="feedback-q1"></div>
+    </section>
+
+    <section class="question-block">
+      <h2>問い②  では、どんな危険がある？</h2>
+      <p>コードがたくさん集まると、どんな問題がある？</p>
+      <form>
+        <label><input type="radio" name="q2" value="a"> 電気の流れが増えて、熱がたまる</label><br>
+        <label><input type="radio" name="q2" value="b"> 特に問題ない、どんどんつなげばOK</label><br>
+      </form>
+      <div class="feedback" id="feedback-q2"></div>
+    </section>
+
+    <section class="hint-toggle">
+      <button onclick="toggleHint('hint1')">電気の道の秘密をのぞいてみよう</button>
+      <div id="hint1" class="hint-content">
+        <p>たくさんの家電が一つのコンセントに集まると、1本の線に多くの電流が流れます。電線には流せる量の上限があり、それを超えると発熱・発火の原因になります。</p>
+        <p>電流＝電圧 ÷ 抵抗（オームの法則）を思い出そう。使う機器が増えると「合計の電力」が増える。結果として電流が多く必要になるのです。</p>
+      </div>
+    </section>
+
+    <section class="self-reflection">
+      <h2>立ち止まってみよう</h2>
+      <p>このステージで、あなたはどこまで気づけた？</p>
+      <form>
+        <label><input type="radio" name="reflect" value="a"> 電流や発熱について、新しく知れた</label><br>
+        <label><input type="radio" name="reflect" value="b"> たこ足配線の何が危ないのか、少し気になった</label><br>
+        <label><input type="radio" name="reflect" value="c"> 正直、まだよくわからない</label><br>
+      </form>
+      <div class="feedback" id="feedback-reflect"></div>
+    </section>
+
+    <section class="next-step">
+      <h2>✅ ステージ達成チェック</h2>
+      <button onclick="markStageCompleted()">このステージを達成する</button>
+    </section>
+  </main>
+
+  <script>
+    document.querySelectorAll('input[name="q1"]').forEach(input => {
+      input.addEventListener('change', () => {
+        const f = document.getElementById("feedback-q1");
+        f.innerHTML = input.value === "b"
+          ? "<p class='correct'>◎ 正解！流れているように見えても、安全とは限らないよ。</p>"
+          : "<p class='wrong'>△ たしかに通るけど、そこに“どれだけ”流れてるかが大事なんだ。</p>";
+      });
+    });
+
+    document.querySelectorAll('input[name="q2"]').forEach(input => {
+      input.addEventListener('change', () => {
+        const f = document.getElementById("feedback-q2");
+        f.innerHTML = input.value === "a"
+          ? "<p class='correct'>◎ そう！電気が多く流れると、コードが熱くなる危険があるよ。</p>"
+          : "<p class='wrong'>△ つなげばつなぐほどリスクは高まる。発火事故の原因にも。</p>";
+      });
+    });
+
+    document.querySelectorAll('input[name="reflect"]').forEach(input => {
+      input.addEventListener('change', () => {
+        const f = document.getElementById("feedback-reflect");
+        if (input.value === "a") {
+          f.innerHTML = "<p class='message'>素晴らしい気づき！次は、どう防げるかを考えてみよう。</p>";
+        } else if (input.value === "b") {
+          f.innerHTML = "<p class='message'>いい着眼点！まだわからないことは、次のステージで深掘りしてみよう。</p>";
+        } else {
+          f.innerHTML = "<p class='message'>大丈夫、少しずつ理解していけばOK。一緒に進もう。</p>";
+        }
+      });
+    });
+
+    function toggleHint(id) {
+      const el = document.getElementById(id);
+      el.style.display = el.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function markStageCompleted() {
+      alert("このステージを達成として記録しました！");
+    }
+  </script>
+</body>
+</html>

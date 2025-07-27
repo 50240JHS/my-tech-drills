@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>火と木と暮らしのまなざし  木を燃やす家は、古い？それとも未来的？</title>
+  <style>
+    body { font-family: sans-serif; line-height: 1.6; background: #fdfdfd; padding: 20px; }
+    h2 { background: #fce4cc; padding: 10px; border-left: 6px solid #ff9800; }
+    .step { margin: 20px 0; padding: 10px; border: 1px solid #ccc; background: #fff; }
+    .option { padding: 6px; margin: 4px 0; border: 1px solid #aaa; cursor: pointer; background: #ffe; }
+    .option:hover { background: #ffffcc; }
+    .feedback, .analysis, .final { display: none; margin-top: 10px; padding: 10px; background: #f0f0f0; border-left: 4px solid #999; }
+  </style>
+  <script>
+    function showFeedback(stepId, num) {
+      const feedbacks = document.querySelectorAll(`#${stepId} .feedback`);
+      feedbacks.forEach(el => el.style.display = 'none');
+      const chosen = document.getElementById(`${stepId}_fb${num}`);
+      if (chosen) chosen.style.display = 'block';
+    }
+
+    function showAnalysis(stepId) {
+      const analysis = document.querySelector(`#${stepId} .analysis`);
+      if (analysis) analysis.style.display = 'block';
+    }
+
+    function showFinal(stepId) {
+      const final = document.querySelector(`#${stepId} .final`);
+      if (final) final.style.display = 'block';
+    }
+  </script>
+</head>
+<body>
+
+<h1>火と木と暮らしのまなざし</h1>
+<div class="step" id="q001125425">
+  <h2>木を燃やす家は、古い？それとも未来的？</h2>
+  <p><strong>ちょっと気になるひとこと</strong><br>「古くさっ！今どきそんなの時代遅れ」と言われ、落ち込みました。</p>
+
+  <h3>STEP1｜あなたはどう思う？</h3>
+  <div class="option" onclick="showFeedback('q001125425', 1)">1. 火を使うのは危ないし不便だから時代遅れ</div>
+  <div class="option" onclick="showFeedback('q001125425', 2)">2. 昔のやり方は無駄だから、見直す必要はない</div>
+  <div class="option" onclick="showFeedback('q001125425', 3)">3. 地域の木を活かし、火と共に暮らす技術は、自然との新しい共生のかたち</div>
+  <div class="option" onclick="showFeedback('q001125425', 4)">4. 火を使う生活は、自然への反抗なので避けるべき</div>
+
+  <div class="feedback" id="q001125425_fb1">→ 危険や不便さの背後にある価値に気づけると深まります。</div>
+  <div class="feedback" id="q001125425_fb2">→ 過去の方法をすべて否定せず、意味を問い直すことが大事です。</div>
+  <div class="feedback" id="q001125425_fb3">→ 共生型の技術として、火を使う意味を再発見できます。</div>
+  <div class="feedback" id="q001125425_fb4">→ 「自然に逆らうもの」という誤謬に注意しましょう。</div>
+
+  <h3 onclick="showAnalysis('q001125425')" style="cursor:pointer;">STEP2  問い返してみる ▼</h3>
+  <div class="analysis">
+    <ul>
+      <li>・なぜ火を使う生活に価値を感じたのか？</li>
+      <li>・今の暮らしにとって、火は何を意味する？</li>
+    </ul>
+    <h4>STEP3  どんな構造がある？</h4>
+    <ul>
+      <li>・“古い＝悪い”という道徳的誤謬</li>
+      <li>・技術の評価軸が一面的になっている</li>
+    </ul>
+    <h4>STEP4  行動につなげる問い</h4>
+    <p>→ 「未来のくらし」に火は必要だと思う？</p>
+    <button onclick="showFinal('q001125425')">📝 解説を見る</button>
+  </div>
+  <div class="final">
+    <p><strong> 解説  </strong><br>火を使う暮らしは古く見えるかもしれませんが、地域資源と共に生きるための再構築された技術でもあります。</p>
+  </div>
+</div>
+
+</body>
+</html>

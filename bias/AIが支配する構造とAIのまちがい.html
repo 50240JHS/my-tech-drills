@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>探究ドリル　支配と誤謬（マップ連携）</title>
+  <style>
+    body { font-family: "Yu Gothic", sans-serif; background: #f7f9fb; padding: 2em; }
+    h1, h2, h3 { color: #002244; }
+    section { margin-bottom: 3em; border: 1px solid #ccc; padding: 1em; background: #fff; border-radius: 10px; }
+    textarea { width: 100%; height: 4em; margin-top: 0.5em; font-size: 1em; }
+    .option { margin-top: 0.8em; padding: 0.7em; cursor: pointer; border-radius: 5px; }
+    .option:hover { background-color: #eef; }
+    .feedback { padding: 1em; margin-top: 1em; border-left: 5px solid #66a; background: #eef; }
+    .bias-natural { background: #ccf; }
+    .bias-moral { background: #cfc; }
+    .bias-struct { background: #fdd; }
+    .hidden { display: none; }
+    #progressBar { margin-top: 2em; background: #ccc; border-radius: 10px; height: 20px; overflow: hidden; }
+    #progressFill { height: 100%; background: #339; width: 0%; transition: width 0.5s; }
+  </style>
+</head>
+<body>
+<h1>AIが支配する構造とＡＩの誤謬（まちがい）の探究マップ</h1>
+<div id="progressBar"><div id="progressFill"></div></div>
+
+<section id="intro" style="background:#fffbe7; border-left:5px solid #cc5; padding:1em; margin-bottom:2em; border-radius:8px;">
+  <h2>ドリルに入る前に</h2>
+  <p>このドリルでは、<strong>「自分のことばで考え、答えること」</strong>を大切にします。</p>
+  <p>だからこそ、<strong>あえて例やヒントはありません。</strong></p>
+  <p>最初はむずかしく感じるかもしれません。でも、<strong>自分自身で「問い」をたて、「考え」を表現する力</strong>がつきます。</p>
+  <div style="margin-top:1em;">
+    <label><input type="checkbox" id="consentCheck"> わたしは、自分のことばで考えることに挑戦します</label>
+  </div>
+  <button onclick="startDrill()" style="margin-top:1em;">ドリルを始める</button>
+</section>
+
+<section id="stage1" style="display:none;">
+  <h2>Stage 1　やさしさの裏にあるもの</h2>
+  <p>「やさしいAI」とはどんな存在か？</p>
+  <div class="option bias-natural" onclick="chooseOption(1,'自然的誤謬','AIは自然に正しく判断してくれるもの')">AIは自然に正しく判断してくれる</div>
+  <div class="option bias-moral" onclick="chooseOption(1,'道徳的誤謬','AIは善意で私たちを助けてくれる')">AIは善意で私たちを助けてくれる</div>
+  <div class="option bias-struct" onclick="chooseOption(1,'構造的支配','やさしさの中に管理構造があるかも')">やさしさの中に管理構造があるかも</div>
+  <textarea placeholder="AIを使っていて不安に思った経験があれば書いてみよう"></textarea>
+  <div id="feedback1" class="feedback hidden"></div>
+  <div style="margin-top:1em; font-size:0.95em; background:#eef; padding:0.8em; border-left:5px solid #88a; border-radius:6px;">
+    <strong>もし考えがまとまらなかったら…</strong><br>
+    <a href="explore.html" target="_blank">探究フラッシュカード</a> や <a href="bias_map.html" target="_blank">マップ型教材</a> を見直してヒントを探してみよう。
+  </div>
+</section>
+
+<section id="stage2" class="hidden">
+  <h2>Stage 2　問い返してみる</h2>
+  <p>AIに何でも聞ける時代──でも、自分の判断力はどうなる？</p>
+  <textarea placeholder="「なぜそう思うのか？」「本当にそうか？」と問い返してみよう"></textarea>
+</section>
+
+<section id="stage3" class="hidden">
+  <h2>Stage 3　構造を見抜く</h2>
+  <p>AIのやさしさが「問いを止める力」（自分なりの考えを失うこと）になっていないか？</p>
+  <textarea placeholder="「問いが止まる」ってどういうことだと思う？"></textarea>
+</section>
+
+<section id="stage4" class="hidden">
+  <h2>Stage 4　バイアスを可視化する</h2>
+  <p>選んだ語りはどんなバイアスの色をしている？</p>
+  <div id="biasMap"></div>
+</section>
+
+<section id="stage5" class="hidden">
+  <h2>Stage 5　問いの先に何をする？</h2>
+  <p>この探究を日常の中でどう活かす？</p>
+  <textarea placeholder="AIや社会との関係で、自分が実際にできる一歩は？"></textarea>
+</section>
+
+<p style="margin-top:2em;">
+  <button onclick="saveProgress()">保存</button>
+  <button onclick="loadProgress()">インポート</button>
+</p>
+
+<script>
+let currentStage = 1;
+let answers = {};
+
+function startDrill() {
+  if (!document.getElementById("consentCheck").checked) {
+    alert("準備ができたらチェックを入れて取りかかります。");
+    return;
+  }
+  document.getElementById("intro").style.display = "none";
+  document.getElementById("stage1").style.display = "block";
+}
+
+function chooseOption(stage, type, msg) {
+  document.getElementById(`feedback${stage}`).innerHTML = `${type}：${msg}`;
+  document.getElementById(`feedback${stage}`).classList.remove('hidden');
+  answers[`stage${stage}`] = {type: type, message: msg};
+  advanceStage();
+}
+
+function advanceStage() {
+  if (currentStage < 5) {
+    currentStage++;
+    document.getElementById(`stage${currentStage}`).classList.remove('hidden');
+    document.getElementById("progressFill").style.width = (currentStage * 20) + "%";
+  }
+}
+
+function saveProgress() {
+  let data = {
+    answers: answers,
+    notes: Array.from(document.querySelectorAll('textarea')).map(t => t.value),
+    date: new Date().toLocaleString()
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type: "application/json"});
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "drill_progress_" + new Date().toISOString().replace(/[:.]/g, '-') + ".json";
+  link.click();
+}
+
+function loadProgress() {
+  const input = document.createElement("input");
+  input.type = "file";
+  input.accept = "application/json";
+  input.onchange = e => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onload = () => {
+      const data = JSON.parse(reader.result);
+      answers = data.answers || {};
+      const notes = data.notes || [];
+      notes.forEach((text, idx) => {
+        if (document.querySelectorAll('textarea')[idx]) {
+          document.querySelectorAll('textarea')[idx].value = text;
+        }
+      });
+      currentStage = notes.length;
+      for (let i = 1; i <= currentStage; i++) {
+        document.getElementById(`stage${i}`).classList.remove('hidden');
+      }
+      document.getElementById("intro").style.display = "none";
+      document.getElementById("progressFill").style.width = (currentStage * 20) + "%";
+    };
+    reader.readAsText(file);
+  };
+  input.click();
+}
+</script>
+</body>
+</html>

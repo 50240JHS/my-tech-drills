@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>特訓ドリル（ライト版）</title>
+  <style>
+    body { font-family: "Yu Gothic", sans-serif; background: #fdfdfd; padding: 2em; }
+    h1 { color: #004466; text-align: center; }
+    #quizContainer { background: #fff; padding: 2em; border-radius: 10px; max-width: 600px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    .question { font-weight: bold; margin-top: 1em; }
+    .choices { margin-top: 1em; }
+    .choice { background: #eef; padding: 0.6em; border-radius: 6px; margin: 0.5em 0; cursor: pointer; transition: 0.3s; }
+    .choice:hover { background: #ddf; }
+    #feedback { margin-top: 1em; font-weight: bold; white-space: pre-line; }
+    #timer { font-size: 1em; color: #d00; margin-top: 1em; }
+    #nextBtn { margin-top: 2em; display: none; }
+    .resultType { font-size: 1.5em; font-weight: bold; color: #003366; margin-bottom: 0.5em; }
+  </style>
+</head>
+<body>
+  <h1>おためし誤謬ドリル（ライト版）</h1>
+  <div id="quizContainer">
+    <p>全5問　あなたの思考のクセを知ってみよう！</p>
+    <div id="questionNumber"></div>
+    <div id="question" class="question"></div>
+    <div id="choices" class="choices"></div>
+    <div id="timer"></div>
+    <div id="feedback"></div>
+    <button id="nextBtn" onclick="nextQuestion()">次の問題へ</button>
+  </div>
+
+  <script>
+    const questions = [
+      { q: "『みんなが使ってるから安心』という理由づけは？", a: "自然的誤謬", options: ["自然的誤謬", "道徳的誤謬", "構造的支配"] },
+      { q: "『あなたのために制限します』はどの誤謬？", a: "構造的支配", options: ["自然的誤謬", "道徳的誤謬", "構造的支配"] },
+      { q: "『よかれと思って判断しました』の背景は？", a: "道徳的誤謬", options: ["道徳的誤謬", "構造的支配", "自然的誤謬"] },
+      { q: "『AIに従えば正解』という主張は？", a: "構造的支配", options: ["道徳的誤謬", "自然的誤謬", "構造的支配"] },
+      { q: "『社会の常識だから』という主張は？", a: "自然的誤謬", options: ["構造的支配", "道徳的誤謬", "自然的誤謬"] },
+    ];
+
+    const explanationMap = {
+      "自然的誤謬": "自然や事実の状態をそのまま価値として正当化する誤りです。例：「昔からこうしてるから」。",
+      "道徳的誤謬": "善意や思いやりを理由に、他者の自由や選択を制限することです。例：「あなたのためを思って」。",
+      "構造的支配": "ルールや制度、技術の仕組みで、気づかないうちに選択を誘導することです。例：「この方法しか選べない」。"
+    };
+
+    let current = 0;
+    let timer;
+    let timeLimit = 7;
+    let count = { "自然的誤謬": 0, "道徳的誤謬": 0, "構造的支配": 0 };
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    const shuffledQuestions = shuffle([...questions]);
+
+    function loadQuestion() {
+      document.getElementById("feedback").textContent = "";
+      document.getElementById("nextBtn").style.display = "none";
+      const q = shuffledQuestions[current];
+      document.getElementById("questionNumber").textContent = `問 ${current + 1} / 5`;
+      document.getElementById("question").textContent = q.q;
+      const choiceDiv = document.getElementById("choices");
+      choiceDiv.innerHTML = "";
+      q.options.forEach(opt => {
+        const div = document.createElement("div");
+        div.textContent = opt;
+        div.className = "choice";
+        div.onclick = () => selectAnswer(opt, q.a);
+        choiceDiv.appendChild(div);
+      });
+      startTimer();
+    }
+
+    function startTimer() {
+      let remaining = timeLimit;
+      document.getElementById("timer").textContent = `制限時間：${remaining}秒`;
+      timer = setInterval(() => {
+        remaining--;
+        document.getElementById("timer").textContent = `制限時間：${remaining}秒`;
+        if (remaining <= 0) {
+          clearInterval(timer);
+          document.getElementById("feedback").textContent = `⏱ 時間切れ！正解は「${shuffledQuestions[current].a}」です。\n💡 ${explanationMap[shuffledQuestions[current].a]}`;
+          document.getElementById("nextBtn").style.display = "block";
+        }
+      }, 1000);
+    }
+
+    function selectAnswer(selected, correct) {
+      clearInterval(timer);
+      count[correct]++;
+      if (selected === correct) {
+        document.getElementById("feedback").textContent = `⭕ 正解です！\n💡 ${explanationMap[correct]}`;
+      } else {
+        document.getElementById("feedback").textContent = `❌ 不正解。正解は「${correct}」でした。\n💡 ${explanationMap[correct]}`;
+      }
+      document.getElementById("nextBtn").style.display = "block";
+    }
+
+    function nextQuestion() {
+      current++;
+      if (current >= 5) {
+        const dominant = Object.entries(count).reduce((a, b) => (a[1] > b[1] ? a : b))[0];
+        const adviceMap = {
+          "自然的誤謬": "常識や自然に従う傾向が強いようです。本質を問い直す視点を意識しましょう。",
+          "道徳的誤謬": "思いやりや善意に反応しやすい傾向があります。距離感を見直すことで見えることもあります。",
+          "構造的支配": "仕組みの裏側を見抜く力があります。構造の中の選択肢を問い直してみましょう。"
+        };
+        document.getElementById("quizContainer").innerHTML = `
+          <div class="resultType">あなたは「${dominant}」タイプの傾向です。</div>
+          <p><small>※ これはゲーム的な自己分析の結果であり、現実のあなたを決めつけるものではありません。</small></p>
+          <p>${adviceMap[dominant]}</p>
+          <hr>
+          <p><strong>このあと、どの学びに進むかを選ぶ前に、それぞれの特徴をよく読んで準備しましょう。</strong></p>
+          <ul>
+            <li><a href='bias_dojo_stage2.html'>本格ドリルに挑戦！</a><br><small>➡ 本格的に誤謬を見抜く力を鍛える道場モードです。集中力とやり抜く意志が必要です。</small></li>
+            <li><a href='bias_explore.html'>探究モードでじっくり考える</a><br><small>➡ 構造を見抜く視点をじっくり深めたい人に。問い直しの旅へ出かけましょう。</small></li>
+            <li><a href='bias_top.html'>バイアス学びの総合TOPへ（約束・学び方）</a><br><small>➡ 学びの全体像や使い方を確認したいときに。初心にかえって整えましょう。</small></li>
+          </ul>
+        `;
+        return;
+      }
+      loadQuestion();
+    }
+
+    loadQuestion();
+  </script>
+</body>
+</html>

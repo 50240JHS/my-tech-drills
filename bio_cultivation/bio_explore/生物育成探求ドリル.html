@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>生物育成 探究ドリル</title>
+  <link rel="stylesheet" href="../common/style.css">
+  <script src="../common/common_ui.js" defer></script>
+</head>
+<body>
+  <header>
+    <h1>生物育成 探究ドリル</h1>
+    <p>現在のステージ: <span id="currentLayer">---</span></p>
+    <p>達成済みステージ: <span id="completedLayers">---</span></p>
+    <button onclick="progress.exportCSV()">進捗CSV出力</button>
+  </header>
+
+  <nav>
+    <button onclick="navigateTo('intro')">はじまりステージへ</button>
+    <button onclick="navigateTo('reflection')">振り返りステージへ</button>
+    <button onclick="toggleSteamView()">STEAM表示切替</button>
+    <button onclick="openFlashcard('bio_cultivation')">生物育成フラッシュカード</button>
+  </nav>
+
+  <section id="intro">
+    <h2>はじまりステージ  生物育成とは？</h2>
+    <p>生き物の特性や育て方を知り、地域や生活とのつながりを考えよう。</p>
+    <button onclick="progress.updateLayer('導入ステージ')">このステージ 達成</button>
+  </section>
+
+  <section id="inquiry">
+    <h2>探求ステージ  育成環境と生物の特性</h2>
+    <p>育成条件や環境がどのように影響するか探ってみよう。</p>
+    <button onclick="progress.updateLayer('探求ステージ')">このステージ 達成</button>
+  </section>
+
+  <section id="pursuit">
+    <h2>追究ステージ  生物育成の工夫と活用</h2>
+    <p>育成方法の工夫や地域資源との活用を考えてみよう。</p>
+    <button onclick="progress.updateLayer('追究ステージ')">このステージ 達成</button>
+  </section>
+
+  <section id="refinement">
+    <h2>研鑽ステージ  持続的な育成と地域社会</h2>
+    <p>循環型の生物育成や地域社会とのつながりを考えてみよう。</p>
+    <button onclick="progress.updateLayer('研鑽ステージ')">このステージ 達成</button>
+  </section>
+
+  <section id="reflection">
+    <h2>振り返りステージ  学びとこれから</h2>
+    <p>生物育成を通じた学びをまとめ、次の問いにつなげよう。</p>
+    <button onclick="progress.updateLayer('振り返りステージ')">このステージ 達成</button>
+  </section>
+
+  <section>
+    <h2>STEAM視点</h2>
+    <div class="steam-view hidden">
+      <p>S  生物の生態・環境科学</p>
+      <p>T  育成技術・栽培システム</p>
+      <p>E  生育環境の設計・改善</p>
+      <p>A  地域文化・育成との融合</p>
+      <p>M  生産量・育成条件の計算</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 my-tech-drills 生物育成 探究ドリル</p>
+  </footer>
+</body>
+</html>

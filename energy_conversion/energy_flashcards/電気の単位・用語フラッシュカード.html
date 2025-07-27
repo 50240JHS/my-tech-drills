@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>電気基礎  かんたんフラッシュカード</title>
+  <style>
+    body { font-family: sans-serif; padding: 40px; text-align: center; }
+    .card { border: 2px solid #333; border-radius: 10px; padding: 20px; margin: 20px auto; width: 400px; }
+    button { margin: 10px; padding: 10px 20px; }
+    #progress-bar { width: 100%; background: #eee; border-radius: 5px; overflow: hidden; margin: 20px 0; }
+    #progress-bar-inner { height: 20px; background: #4CAF50; width: 0%; text-align: center; color: #fff; }
+    #controls { margin: 20px; }
+    label { margin: 0 10px; }
+  </style>
+</head>
+<body>
+  <h1>電気基礎  かんたんフラッシュカード</h1>
+
+  <div id="progress-bar">
+    <div id="progress-bar-inner">0%</div>
+  </div>
+
+  <div class="card" id="card">
+    <h2 id="term"></h2>
+    <p id="reading"></p>
+    <p id="definition"></p>
+    <p id="example"></p>
+    <div id="controls">
+      <label>スピード:
+        <select id="speed">
+          <option value="1">1.0x</option>
+          <option value="1.5">1.5x</option>
+          <option value="2">2.0x</option>
+        </select>
+      </label>
+      <label>
+        <input type="checkbox" id="autoPlay"> オート再生
+      </label>
+    </div>
+    <button onclick="speak()">🔊 読み上げる</button>
+    <button onclick="nextCard()">➡ 次へ</button>
+    <button onclick="shuffleCards()">🔀 シャッフル</button>
+  <button onclick="location.href='../index.html'">🏠 エネルギー変換TOPへ戻る</button>
+  </div>
+
+  <script>
+    const cards = [
+      { term: "電子", reading: "でんし", definition: "電気を運ぶ粒子", example: "電子が電気を運びます。" },
+      { term: "A", reading: "あんぺあ", definition: "電流の単位", example: "アンペアは電流を表します。" },
+      { term: "V", reading: "ぼると", definition: "電圧の単位", example: "ボルトは電圧を表します。" },
+      { term: "Ω", reading: "おーむ", definition: "抵抗の単位", example: "オームは抵抗を表します。" },
+      { term: "Ｗ", reading: "わっと", definition: "電力の単位", example: "ワットは電力を表します。" },
+      { term: "直流", reading: "ちょくりゅう", definition: "電流の向きが一定", example: "直流は電流の向きが一定です。" },
+      { term: "交流", reading: "こうりゅう", definition: "電流の向きが変わる", example: "交流は電流の向きが変わります。" },
+      { term: "漏電", reading: "ろうでん", definition: "電気が漏れること", example: "漏電で電気が漏れます。" },
+      { term: "漏電遮断器", reading: "ろうでんしゃだんき", definition: "漏電を止める装置", example: "漏電遮断器が漏電を止めます。" },
+      { term: "コンセント", reading: "こんせんと", definition: "電源の差込口", example: "コンセントは電源をつなぎます。" }
+    ];
+
+    let current = 0;
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
+
+    function shuffleCards() {
+      shuffle(cards);
+      current = 0;
+      updateProgress();
+      showCard();
+    }
+
+    function showCard() {
+      const c = cards[current];
+      document.getElementById("term").textContent = c.term;
+      document.getElementById("reading").textContent = `読み方: ${c.reading}`;
+      document.getElementById("definition").textContent = `定義: ${c.definition}`;
+      document.getElementById("example").textContent = `例文: ${c.example}`;
+      updateProgress();
+    }
+
+    function nextCard() {
+      if (current < cards.length - 1) {
+        current++;
+      } else {
+        current = 0; // 終わったら最初に戻る
+      }
+      showCard();
+      if (document.getElementById("autoPlay").checked) {
+        speak();
+      }
+    }
+
+    function speak() {
+      const c = cards[current];
+      const utter = new SpeechSynthesisUtterance(
+        `${c.term}。${c.reading}。${c.definition}。${c.example}`
+      );
+      utter.lang = 'ja-JP';
+      utter.rate = parseFloat(document.getElementById("speed").value);
+      utter.onend = function() {
+        if (document.getElementById("autoPlay").checked) {
+          nextCard();
+        }
+      };
+      speechSynthesis.speak(utter);
+    }
+
+    function updateProgress() {
+      const percent = Math.round(((current + 1) / cards.length) * 100);
+      document.getElementById("progress-bar-inner").style.width = percent + "%";
+      document.getElementById("progress-bar-inner").textContent = `${current + 1} / ${cards.length} (${percent}%)`;
+    }
+
+    shuffleCards(); // 初期シャッフル
+  </script>
+  <footer>
+    <p>&copy; 2025 my-tech-drills Project</p>
+  </footer>
+</body>
+</html>

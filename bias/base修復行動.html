@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>探究教材｜問いの先にどう行動する？</title>
+  <style>
+    body { font-family: "Yu Gothic", sans-serif; background: #f4f6f9; color: #222; padding: 2em; line-height: 1.8; }
+    h1, h2 { color: #003366; }
+    section { margin-bottom: 3em; background: #fff; padding: 1.5em; border-radius: 10px; box-shadow: 0 0 10px #ccc; }
+    textarea, select { width: 100%; margin-top: 0.5em; font-size: 1em; padding: 0.6em; border: 1px solid #999; border-radius: 5px; }
+    summary { font-weight: bold; cursor: pointer; color: #003355; margin-top: 1em; }
+    label { display: block; margin: 0.5em 0; }
+    .feedback { margin-top: 1em; padding: 1em; border-left: 5px solid #66a; background: #eef; }
+  </style>
+  <script>
+    function evaluateNextStep() {
+      const level = document.querySelector('input[name="selfeval"]:checked');
+      const result = document.getElementById("nextStepResult");
+      if (!level) {
+        result.innerHTML = "<p style='color:red;'>どれか選んでください。</p>";
+        return;
+      }
+      let message = "";
+      switch(level.value) {
+        case "1":
+          message = "まずは、気になった言葉に立ち止まり、「本当にそう？」と問い返すことから始めよう。";
+          break;
+        case "2":
+          message = "どんな誤謬にあたるかを分けて考える練習をしよう。別の言い方に言い換えて考えるのもおすすめ。";
+          break;
+        case "3":
+          message = "実生活で見聞きした例をメモして、どんな構造があるか、友達と話し合ってみよう。";
+          break;
+      }
+      result.innerHTML = "<div class='feedback'><strong>次のステップ:</strong> " + message + "</div>";
+    }
+  </script>
+</head>
+<body>
+
+<h1>問いの先に    どう行動する？</h1>
+
+<section>
+  <h2>ステップ1  問いに出会う</h2>
+  <details>
+    <summary>「みんなもそうしてるから大丈夫」って言われたら？</summary>
+    <textarea placeholder="あなたはどう思う？疑問に思う？なぜ？"></textarea>
+  </details>
+</section>
+
+<section>
+  <h2>ステップ2  分類する（どの誤謬？）</h2>
+  <p>この語りはどのタイプの誤謬に近いと思う？</p>
+  <label><input type="radio" name="bias" value="natural"> 自然的誤謬（例「ふつう」「本来」「自然」）</label>
+  <label><input type="radio" name="bias" value="moral"> 道徳的誤謬（例「正義」「やさしさ」「信頼」）</label>
+  <label><input type="radio" name="bias" value="structure"> 構造的支配（例「誰かがよかれと思って整えてくる」）</label>
+</section>
+
+<section>
+  <h2>ステップ3  あなたの行動カード</h2>
+  <p>この問いや誤謬に似たものに、あなたの日常で出会ったらどう行動する？</p>
+  <textarea placeholder="（例）まずはその言葉の背景を考えて、相手に『なんでそう思ったの？』と聞いてみる...など"></textarea>
+</section>
+
+<section>
+  <h2>ステップ4   ふりかえり</h2>
+  <p>この教材でのあなたの気づきの深さはどのレベル？</p>
+  <label><input type="radio" name="selfeval" value="1"> 誤謬の区別がなんとなくわかった</label>
+  <label><input type="radio" name="selfeval" value="2"> 誤謬の分類ができるようになってきた</label>
+  <label><input type="radio" name="selfeval" value="3"> 日常で自分の行動に結びつけて考えられる</label>
+  <button onclick="evaluateNextStep()">✅ 次に進むには？</button>
+  <div id="nextStepResult"></div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>自然主義的誤謬×素材・伝統ドリル</title>
+  <style>
+    body { font-family: sans-serif; line-height: 1.6; background: #fdfdfd; padding: 20px; }
+    h2 { background: #d0e8dc; padding: 10px; border-left: 6px solid #2b7a78; }
+    .step { margin: 20px 0; padding: 10px; border: 1px solid #ccc; background: #fff; }
+    .option { padding: 6px; margin: 4px 0; border: 1px solid #aaa; cursor: pointer; background: #eef; }
+    .option:hover { background: #ddeeff; }
+    .feedback, .analysis, .final { display: none; margin-top: 10px; padding: 10px; background: #f0f0f0; border-left: 4px solid #999; }
+  </style>
+  <script>
+    function showFeedback(stepId, num) {
+      const feedbacks = document.querySelectorAll(`#${stepId} .feedback`);
+      feedbacks.forEach(el => el.style.display = 'none');
+      const chosen = document.getElementById(`${stepId}_fb${num}`);
+      if (chosen) chosen.style.display = 'block';
+    }
+
+    function showAnalysis(stepId) {
+      const analysis = document.querySelector(`#${stepId} .analysis`);
+      if (analysis) analysis.style.display = 'block';
+    }
+
+    function showFinal(stepId) {
+      const final = document.querySelector(`#${stepId} .final`);
+      if (final) final.style.display = 'block';
+    }
+  </script>
+</head>
+<body>
+
+<h1>素材や伝統の見方を深めるドリル</h1>
+
+<!-- B001 -->
+<div class="step" id="b001">
+  <h2>木材を扱うときの視点</h2>
+  <p><strong>ちょっと気になるひとこと</strong><br>
+  「木って年輪があったり、節があったりで手間かかるし、人工素材の方がわかりやすくて安心だよね」</p>
+
+  <h3>STEP1｜あなたはどう思う？</h3>
+  <div class="option" onclick="showFeedback('b001', 1)">1. なるほど、合理的な考え方かも</div>
+  <div class="option" onclick="showFeedback('b001', 2)">2. 木には木の価値があると思う</div>
+  <div class="option" onclick="showFeedback('b001', 3)">3. なんとなく受け入れてしまいそうだった</div>
+  <div class="option" onclick="showFeedback('b001', 4)">4. 正直、判断が難しい</div>
+
+  <div class="feedback" id="b001_fb1">→ 効率を重視する考え方には「自然素材＝不便」という前提があるかもしれません。</div>
+  <div class="feedback" id="b001_fb2">→ 木材の背景や育った環境、人の手に思いを馳せる視点が含まれています。</div>
+  <div class="feedback" id="b001_fb3">→ 「なんとなく」はよくある反応。そこから考えることが大事です。</div>
+  <div class="feedback" id="b001_fb4">→ 判断がつかないのは問いを持てた証。じっくり考えてみましょう。</div>
+
+  <h3 onclick="showAnalysis('b001')" style="cursor:pointer;">STEP2｜問い返してみる ▼</h3>
+  <div class="analysis">
+    <ul>
+      <li>・人工素材って、どんな場面で求められてるんだろう？</li>
+      <li>・燃やすって…その木はどこから来たんだろう？</li>
+    </ul>
+    <h4>どんな構造がある？</h4>
+    <ul>
+      <li>・“扱いやすさ＝価値”という偏った見方になっていないか？</li>
+      <li>・複雑さや地域性のある素材を排除する構造では？</li>
+    </ul>
+    <h4>STEP4｜行動につなげる問い</h4>
+    <p>→ 木を選ぶとき、何を優先したいと思う？</p>
+    <button onclick="showFinal('b001')">📝 解説を見る</button>
+  </div>
+  <div class="final">
+    <p><strong>解説</strong><br>
+    自然素材は不均一で手間がかかるというのは一面の事実。しかし、それが「価値がない」「非合理」とするのは誤謬です。地元の木材には、風土・歴史・人の手が重なっています。人工素材との対比ではなく、目的や役割に応じて素材を選ぶ視点が必要です。
+    </p>
+  </div>
+</div>
+
+<!-- B002 -->
+<div class="step" id="b002">
+  <h2>地元の間伐材と補助金の話</h2>
+  <p><strong>ちょっと気になるひとこと</strong><br>
+  「地元材って丸太から板に製材したままだと、同じおおきさの板でもはえていたところで全然違うし、助金付きの輸入合板使えば楽でしょ」</p>
+
+  <h3>STEP1｜あなたはどう思う？</h3>
+  <div class="option" onclick="showFeedback('b002', 1)">1. 効率重視なら補助金付きがいいと思う</div>
+  <div class="option" onclick="showFeedback('b002', 2)">2. 地元材にも意味があるのでは？</div>
+  <div class="option" onclick="showFeedback('b002', 3)">3. 言われてみると…判断に迷う</div>
+  <div class="option" onclick="showFeedback('b002', 4)">4. 補助金って誰のための制度なんだろう？</div>
+
+  <div class="feedback" id="b002_fb1">→ 効率の陰にある価値や背景を見逃してしまうかもしれません。</div>
+  <div class="feedback" id="b002_fb2">→ 地元の森林や人との関係を考える第一歩です。</div>
+  <div class="feedback" id="b002_fb3">→ 迷いは大事な問いの始まり。何を大事にするかが問われています。</div>
+  <div class="feedback" id="b002_fb4">→ 「制度の目的」を見直すことは、社会構造への問いになります。</div>
+
+  <h3 onclick="showAnalysis('b002')" style="cursor:pointer;">STEP2｜問い返してみる ▼</h3>
+  <div class="analysis">
+    <ul>
+      <li>・補助金って、素材の“意味”まで決めてしまうもの？</li>
+      <li>・将来の森づくりは、誰がどう考えている？</li>
+    </ul>
+    <h4>STEP3｜どんな構造がある？</h4>
+    <ul>
+      <li>・“補助金が出る＝使う価値が高い”というすり替え</li>
+      <li>・地域との関係性が切れてしまう制度的な問題</li>
+    </ul>
+    <h4>STEP4｜行動につなげる問い</h4>
+    <p>→ 木材選びで、山や地域との未来をつなげるには？</p>
+    <button onclick="showFinal('b002')">📝 解説を見る</button>
+  </div>
+  <div class="final">
+    <p><strong>解説</strong><br>
+    補助金や制度によって選ばれる素材は、経済合理性で選ばれた結果です。 しかし、地元材には森林管理や地域の産業との関係があります。補助金の有無だけでなく、「誰のための素材選びか」という視点が重要です。
+    </p>
+  </div>
+</div>
+
+<!-- B003 -->
+<div class="step" id="b003">
+  <h2>伝統をどうとらえる？</h2>
+  <p><strong>ちょっと気になるひとこと</strong><br>
+  「伝統って何？　なんか関係ない気がするし。昔からやってることなんだから、理由なんて考えなくていいんじゃない？」</p>
+
+  <h3>STEP1  あなたはどう思う？</h3>
+  <div class="option" onclick="showFeedback('b003', 1)">1. たしかに、理由なんていらないかも</div>
+  <div class="option" onclick="showFeedback('b003', 2)">2. それって少し思考停止では…？</div>
+  <div class="option" onclick="showFeedback('b003', 3)">3. 守る理由や背景を知らないまま続けるのは不安</div>
+  <div class="option" onclick="showFeedback('b003', 4)">4. 伝統の“意味”って何だろう</div>
+
+  <div class="feedback" id="b003_fb1">→ 「昔からある」は魅力ですが、考えることを止めると意味が置き去りになるかも。</div>
+  <div class="feedback" id="b003_fb2">→ 素直な疑問は伝統に向き合う力になります。</div>
+  <div class="feedback" id="b003_fb3">→ 背景を理解することが、受け継ぐ責任を育てます。</div>
+  <div class="feedback" id="b003_fb4">→ 意味に目を向けることで、伝統は「生きた力」になります。</div>
+
+  <h3 onclick="showAnalysis('b003')" style="cursor:pointer;">STEP2  問い返してみる ▼</h3>
+  <div class="analysis">
+    <ul>
+      <li>・なぜそれが受け継がれてきたのか、考えたことはある？</li>
+      <li>・今の時代に合う形にアレンジする道はない？</li>
+    </ul>
+    <h4>STEP3  どんな構造がある？</h4>
+    <ul>
+      <li>・“昔からある”＝“正しい”という誤謬</li>
+      <li>・背景の意味や意図を問い直す視点の欠如</li>
+    </ul>
+    <h4>STEP4  行動につなげる問い</h4>
+    <p>→ 自分なりに残したい伝統って、どんなもの？</p>
+    <button onclick="showFinal('b003')"> 解説を見る</button>
+  </div>
+  <div class="final">
+    <p><strong> 解説</strong><br>
+    伝統には多くの知恵や工夫が詰まっていますが、それを「理由もわからず守る」だけでは、未来にはつながりません。 背筋が伸びるような感覚、それは“意味”を考える力が芽生えた証です。伝統を背負って未来へつなぐための姿勢が大切です。
+    </p>
+  </div>
+</div>
+
+</body>
+</html>
